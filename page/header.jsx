@@ -1,0 +1,159 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/*
+ * Copyright 2025 Jiamu Sun <barroit@linux.com>
+ */
+
+import Cookies from 'js-cookie'
+import { useEffect, useMemo, useRef, useState } from 'react'
+
+import Fuckingel from './react/fuckingel.jsx'
+import Flicker from './react/flicker.jsx'
+import { rand_once } from './react/rand.js'
+import Shell from './react/shell.jsx'
+import Totheir from './react/totheir.jsx'
+
+const nav_urls = [
+	[ 'Github', 'https://github.com/barroit' ],
+	[ 'Crap', 'https://crap.barroit.sh' ],
+]
+
+const strip_icons = [
+	'/2025-octagram.svg',
+	'/2024-flag.svg',
+	'/2023-megaphone.svg',
+	'/10th-pentagram.svg',
+	'/2021-flower.svg',
+	'/2020-clover.svg',
+	'/2019-prism.svg',
+	'/2018-balloon.svg',
+	'/2014-triangle.svg',
+]
+
+function Lustrous()
+{
+return (
+<p>let skyColor = memory.get("last_seen_sky");</p>
+) /* return */
+}
+
+function Strip()
+{
+	const box = useRef()
+	const [ enabled, enable ] = useState(() =>
+	{
+		const media = '(prefers-reduced-motion: reduce)'
+
+		if (!Cookies.get('disable_strip'))
+			Cookies.set('disable_strip', true)
+
+		return !window.matchMedia(media).matches &&
+		       Cookies.get('disable_strip') != 'true'
+	})
+
+	const phase = useRef(rand_once())
+	const smooth_y = (r, c) => `translateY(${ Math.sin(r * 0.9 + c) }rem)`
+	const update_y = (el, r, c) => el.style.transform = smooth_y(r, c)
+
+	useEffect(() =>
+	{
+		if (!enabled)
+			return
+
+		const imgs = Array.from(box.current.children)
+
+		let visible = 0
+		let id
+		const wave = () =>
+		{
+			if (!visible)
+				return
+
+			for (let i = 0; i < imgs.length; i++)
+				update_y(imgs[i], i, phase.current)
+
+			phase.current = (phase.current + 0.03) % (Math.PI * 2)
+			id = requestAnimationFrame(wave)
+		}
+
+		const viewcheck = new IntersectionObserver(([ entry ]) =>
+		{
+			visible = entry.isIntersecting
+
+			if (visible)
+				requestAnimationFrame(wave)
+		})
+
+		viewcheck.observe(box.current)
+
+		return () =>
+		{
+			viewcheck.disconnect()
+			cancelAnimationFrame(id)
+		}
+	}, [ enabled ])
+
+	useEffect(() =>
+	{
+		const imgs = Array.from(box.current.children)
+
+		for (let i = 0; i < imgs.length; i++)
+			update_y(imgs[i], i, phase.current)
+	}, [])
+
+	const strip_flip = event =>
+	{
+		enable(!enabled)
+		Cookies.set('disable_strip', enabled)
+	}
+
+return (
+<div className='relative'>
+  <button onClick={ strip_flip }
+          className={ 'center-y pb-5 border-2 border-indigo-500 ' +
+                      (!enabled ? 'border-indigo-500/40' : '')}>
+    <div ref={ box } className='center-y flex *:scale-50 *:ml-2'>
+    {strip_icons.map((name, i) => (
+      <img key={ name } src={ name } alt=''/>
+    ))}
+    </div>
+    <Fuckingel size={ 48 }/>
+  </button>
+  {/*
+    * Hold up our box and make it work with outer flex.
+    */}
+  <Fuckingel size={ 48 }/>
+</div>
+) /* return */
+}
+
+function Nav()
+{
+return (
+<nav className='flex items-center'>
+  <img className='h-min m-1.5' src='/le-flag-only.svg' alt=''/>
+  <ul className='flex'>
+  {nav_urls.map(([ name, url ]) => (
+    <li key={ name }>
+      <Shell left='[' right=']'>
+        <Totheir href={ url }>
+          <Flicker>{ name }</Flicker>
+        </Totheir>
+      </Shell>
+    </li>
+  ))}
+  </ul>
+</nav>
+) /* return */
+}
+
+export default function Header()
+{
+return (
+<header className='header flex justify-between pb-3 pt-5
+                   border-b-5 border-[#4d4d4d] dark:border-[#4d4d4d]'>
+  <Lustrous/>
+  <Strip/>
+  <Nav/>
+</header>
+) /* return */
+}

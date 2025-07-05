@@ -3,8 +3,6 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
-import { useRef } from 'react'
-
 import Totheir from './react/totheir.jsx'
 import Shell from './react/shell.jsx'
 import Flicker from './react/flicker.jsx'

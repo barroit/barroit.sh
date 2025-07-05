@@ -3,9 +3,19 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
+import Commit from './commit.jsx'
+import Header from './header.jsx'
+
 export default function Profile()
 {
 return (
-<h1>PANIC!</h1>
+<>
+  <Header/>
+  <main className='mb-256'>22</main>
+  <main className='mb-256'>22</main>
+  <footer>
+    <Commit/>
+  </footer>
+</>
 ) /* return */
 }
