@@ -116,7 +116,7 @@ return (
 <div className='relative'>
   <button onClick={ strip_flip }
           aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
-          className={ 'center-y pb-5 border-2 ' +
+          className={ 'center-y p-3 border-2 ' +
                       (enabled ? 'border-red-600' : 'border-green-600')}>
     <div ref={ box } className='center-y flex gap-2'>
     {strip_icons.map((name, i) => (
@@ -136,10 +136,8 @@ return (
 function Nav()
 {
 return (
-<nav className='flex items-center'>
-  <img src='/le-flag-only.svg'
-       className='h-min m-1.5' alt='' aria-hidden='true'/>
-  <ul className='flex'>
+<nav>
+  <ul className='flex items-center'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>
       <Shell left='[' right=']'>
@@ -157,7 +155,7 @@ return (
 export default function Header()
 {
 return (
-<header className='header flex justify-between pb-3 pt-5
+<header className='header flex justify-between pb-4 pt-5
                    border-b-5 border-[#4d4d4d] dark:border-[#4d4d4d]'>
   <Lustrous/>
   <Strip/>
