@@ -3,7 +3,22 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
-#root {
-	min-width: inherit;
-	min-height: inherit;
+.hero-strip {
+background-image:
+	repeating-linear-gradient(to bottom,
+				  #ffffff0d 0, #ffffff0d 0.8rem,
+				  transparent 0.8rem, transparent 1.6rem),
+	repeating-linear-gradient(to bottom,
+				  #ffffff0d 0, #ffffff0d 0.8rem,
+				  transparent 0.8rem, transparent 1.6rem),
+	repeating-linear-gradient(to bottom,
+				  #ffffff0d 0, #ffffff0d 0.8rem,
+				  transparent 0.8rem, transparent 1.6rem),
+	repeating-linear-gradient(to bottom,
+				  #ffffff0d 0, #ffffff0d 0.8rem,
+				  transparent 0.8rem, transparent 1.6rem);
+
+	background-size: 0.2rem 100%;
+	background-position: 18rem 0, 36rem 0, 54rem 0, 72rem 0;
+	background-repeat: no-repeat;
 }

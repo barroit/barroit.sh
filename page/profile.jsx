@@ -3,18 +3,19 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
-import Commit from './commit.jsx'
 import Header from './header.jsx'
+import Hero from './hero.jsx'
 
 export default function Profile()
 {
 return (
 <>
   <Header/>
-  <main className='mb-256'>22</main>
-  <main className='mb-256'>22</main>
+  <main className='flex-1 flex flex-col'>
+    <Hero/>
+  </main>
   <footer>
-    <Commit/>
+    footer
   </footer>
 </>
 ) /* return */
