@@ -6,7 +6,7 @@
 import Cookies from 'js-cookie'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import Fuckingel from './react/fuckingel.jsx'
+import TheFuckingContent from './react/tfc.jsx'
 import Flicker from './react/flicker.jsx'
 import { rand_once } from './react/rand.js'
 import Shell from './react/shell.jsx'
@@ -109,19 +109,20 @@ function Strip()
 return (
 <div className='relative'>
   <button onClick={ strip_flip }
-          className={ 'center-y pb-5 border-2 border-indigo-500 ' +
-                      (!enabled ? 'border-indigo-500/40' : '')}>
+          aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
+          className={ 'center-y pb-5 border-2 ' +
+                      (enabled ? 'border-red-600' : 'border-green-600')}>
     <div ref={ box } className='center-y flex *:scale-50 *:ml-2'>
     {strip_icons.map((name, i) => (
       <img key={ name } src={ name } alt=''/>
     ))}
     </div>
-    <Fuckingel size={ 48 }/>
+    <TheFuckingContent size={ 48 }/>
   </button>
   {/*
     * Hold up our box and make it work with outer flex.
     */}
-  <Fuckingel size={ 48 }/>
+  <TheFuckingContent size={ 48 }/>
 </div>
 ) /* return */
 }
@@ -130,7 +131,8 @@ function Nav()
 {
 return (
 <nav className='flex items-center'>
-  <img className='h-min m-1.5' src='/le-flag-only.svg' alt=''/>
+  <img src='/le-flag-only.svg'
+       className='h-min m-1.5' alt='' aria-hidden='true'/>
   <ul className='flex'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>

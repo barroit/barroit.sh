@@ -11,8 +11,8 @@ export default function Commit()
 {
 return (
 <Shell left='[' right=']'>
-  <Totheir href={`${__HOMEPAGE__}/tree/${__LAST_COMMIT__}`}>
-    <Flicker>{__LAST_COMMIT__}</Flicker>
+  <Totheir href={ `${ __HOMEPAGE__ }/tree/${ __LAST_COMMIT__ }` }>
+    <Flicker>{ __LAST_COMMIT__ }</Flicker>
   </Totheir>
 </Shell>
 ) /* return */
