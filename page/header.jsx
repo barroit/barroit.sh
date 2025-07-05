@@ -51,7 +51,11 @@ function Strip()
 	})
 
 	const phase = useRef(rand_once())
-	const smooth_y = (r, c) => `translateY(${ Math.sin(r * 0.9 + c) }rem)`
+	const k = 0.9
+	const period = Math.PI * 2
+	const fn = (r, c) => Math.sin(k * r + c)
+
+	const smooth_y = (r, c) => `translate3d(0, ${ fn(r, c) }rem, 0)`
 	const update_y = (el, r, c) => el.style.transform = smooth_y(r, c)
 
 	useEffect(() =>
@@ -61,26 +65,28 @@ function Strip()
 
 		const imgs = Array.from(box.current.children)
 
-		let visible = 0
 		let id
+		let skip = 3
 		const wave = () =>
 		{
-			if (!visible)
-				return
+			if (!skip) {
+				for (let i = 0; i < imgs.length; i++)
+					update_y(imgs[i], i, phase.current)
 
-			for (let i = 0; i < imgs.length; i++)
-				update_y(imgs[i], i, phase.current)
+				phase.current = (phase.current + 0.09) % period
+				skip = 3
+			}
 
-			phase.current = (phase.current + 0.03) % (Math.PI * 2)
+			skip--
 			id = requestAnimationFrame(wave)
 		}
 
 		const viewcheck = new IntersectionObserver(([ entry ]) =>
 		{
-			visible = entry.isIntersecting
-
-			if (visible)
-				requestAnimationFrame(wave)
+			if (!entry.isIntersecting)
+				cancelAnimationFrame(id)
+			else
+			 	id = requestAnimationFrame(wave)
 		})
 
 		viewcheck.observe(box.current)
@@ -112,17 +118,17 @@ return (
           aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
           className={ 'center-y pb-5 border-2 ' +
                       (enabled ? 'border-red-600' : 'border-green-600')}>
-    <div ref={ box } className='center-y flex *:scale-50 *:ml-2'>
+    <div ref={ box } className='center-y flex gap-2'>
     {strip_icons.map((name, i) => (
-      <img key={ name } src={ name } alt=''/>
+      <img key={ name } src={ name } alt='' className='scale-60'/>
     ))}
     </div>
-    <TheFuckingContent size={ 48 }/>
+    <TheFuckingContent length={ 47 }/>
   </button>
   {/*
     * Hold up our box and make it work with outer flex.
     */}
-  <TheFuckingContent size={ 48 }/>
+  <TheFuckingContent length={ 47 }/>
 </div>
 ) /* return */
 }
