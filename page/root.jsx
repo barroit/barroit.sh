@@ -8,7 +8,6 @@ import { createRoot } from 'react-dom/client'
 
 import Profile from './profile.jsx'
 
-import './index.css'
 import './patch.css'
 
 createRoot(document.getElementById('root')).render(
