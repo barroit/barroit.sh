@@ -14,25 +14,39 @@ import Totheir from './react/totheir.jsx'
 
 const nav_urls = [
 	[ 'Github', 'https://github.com/barroit' ],
-	[ 'Crap', 'https://crap.barroit.sh' ],
+	[ 'Crap',   'https://crap.barroit.sh'    ],
 ]
 
 const strip_icons = [
-	'/2025-octagram.svg',
-	'/2024-flag.svg',
-	'/2023-megaphone.svg',
-	'/10th-pentagram.svg',
-	'/2021-flower.svg',
-	'/2020-clover.svg',
-	'/2019-prism.svg',
-	'/2018-balloon.svg',
-	'/2014-triangle.svg',
+	[ '/2025-octagram.svg',  'magical mirai 2025 octagram'  ],
+	[ '/2024-flag.svg',      'magical mirai 2024 flag'      ],
+	[ '/2023-megaphone.svg', 'magical mirai 2023 megaphone' ],
+	[ '/10th-pentagram.svg', 'magical mirai 10th pentagram' ],
+	[ '/2021-flower.svg',    'magical mirai 2021 flower'    ],
+	[ '/2020-clover.svg',    'magical mirai 2020 clover'    ],
+	[ '/2019-prism.svg',     'magical mirai 2019 prism'     ],
+	[ '/2018-balloon.svg',   'magical mirai 2018 balloon'   ],
+	[ '/2014-triangle.svg',  'magical mirai 2014 triangle'  ],
 ]
+
+const ctrl_colors = [ 'bg-red-500', 'bg-yellow-500', 'bg-green-500' ]
 
 function Lustrous()
 {
 return (
-<p>let skyColor = memory.get("last_seen_sky");</p>
+<div className='xl:hidden 2xl:block text-nowrap'>
+  <p className='hidden lg:block'>
+    let skyColor = memory.get("last_seen_sky");
+  </p>
+  <p className='hidden md:block lg:hidden'>
+    log.error("stellar_signal_lost");
+  </p>
+  <div className='flex md:hidden items-center gap-x-2 h-full ml-1'>
+  {ctrl_colors.map((color, i) => (
+    <div key={ i } className={ 'p-2 rounded-full ' + color }></div>
+  ))}
+  </div>
+</div>
 ) /* return */
 }
 
@@ -66,18 +80,18 @@ function Strip()
 		const imgs = Array.from(box.current.children)
 
 		let id
-		let skip = 3
+		const skip = [ 0, 1, 1, 1 ]
+		let next = 0
 		const wave = () =>
 		{
-			if (!skip) {
+			if (!skip[next]) {
 				for (let i = 0; i < imgs.length; i++)
 					update_y(imgs[i], i, phase.current)
 
 				phase.current = (phase.current + 0.09) % period
-				skip = 3
 			}
 
-			skip--
+			next = (next + 1) % 4
 			id = requestAnimationFrame(wave)
 		}
 
@@ -113,22 +127,16 @@ function Strip()
 	}
 
 return (
-<div className='relative'>
-  <button onClick={ strip_flip }
+<div className='relative hidden xl:block ml-1 2xl:ml-0'>
+  <button ref={ box } onClick={ strip_flip }
           aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
-          className={ 'center-y p-3 border-2 ' +
-                      (enabled ? 'border-red-600' : 'border-green-600')}>
-    <div ref={ box } className='center-y flex gap-2'>
-    {strip_icons.map((name, i) => (
-      <img key={ name } src={ name } alt='' className='scale-60'/>
+          className={ 'center-y p-1 border-2 flex gap-x-2 min-w-max ' +
+                      (enabled ? 'border-red-600' : 'border-green-600') }>
+    {strip_icons.map(([ name, alt ], i) => (
+      <img key={ name } src={ name } className='scale-60' alt={ alt }/>
     ))}
-    </div>
-    <TheFuckingContent length={ 47 }/>
   </button>
-  {/*
-    * Hold up our box and make it work with outer flex.
-    */}
-  <TheFuckingContent length={ 47 }/>
+  <TheFuckingContent length={ 60 }/>
 </div>
 ) /* return */
 }
@@ -137,7 +145,7 @@ function Nav()
 {
 return (
 <nav>
-  <ul className='flex items-center'>
+  <ul className='flex items-center h-full'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>
       <Shell left='[' right=']'>
