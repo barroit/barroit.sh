@@ -78,20 +78,13 @@ function Strip()
 			return
 
 		const imgs = Array.from(box.current.children)
-
 		let id
-		const skip = [ 0, 1, 1, 1 ]
-		let next = 0
 		const wave = () =>
 		{
-			if (!skip[next]) {
-				for (let i = 0; i < imgs.length; i++)
-					update_y(imgs[i], i, phase.current)
+			for (let i = 0; i < imgs.length; i++)
+				update_y(imgs[i], i, phase.current)
 
-				phase.current = (phase.current + 0.09) % period
-			}
-
-			next = (next + 1) % 4
+			phase.current = (phase.current + 0.09) % period
 			id = requestAnimationFrame(wave)
 		}
 
