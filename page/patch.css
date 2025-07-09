@@ -64,7 +64,9 @@
 	       md:bg-position-[7rem,15rem,23rem,32rem,43rem]
 	       lg:bg-position-[8rem,17rem,26rem,37rem,48rem,60rem]
 	       xl:bg-position-[9rem,19rem,30rem,42rem,55rem,69rem]
-	       2xl:bg-position-[11rem,23rem,36rem,51rem,67rem,85rem,104rem]
-	       3xl:bg-position-[12rem,25rem,40rem,56rem,73rem,93rem,114rem,138rem]
-	       4xl:bg-position-[13rem,27rem,43rem,60rem,79rem,100rem,123rem,149rem,177rem,207rem];
+	       2xl:bg-position-[11rem,23rem,36rem,51rem,67rem,85rem,104rem];
+}
+
+.bg-terminal {
+	@apply bg-[#ffffff] dark:bg-[#1e1e1e];
 }

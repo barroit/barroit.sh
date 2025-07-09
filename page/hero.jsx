@@ -3,6 +3,7 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
+import clsx from 'clsx'
 import { useEffect, useRef } from 'react'
 
 import { age_since, fmt_age } from './age.js'
@@ -11,65 +12,84 @@ import TheFuckingContent from './react/tfc.jsx'
 const age = age_since(1112745600000)
 const age_str = fmt_age(age)
 
-const cntl_icons = [
+const wcntl = [
 	[ '/close.svg', 'bg-red-500' ],
 	[ '/minimize.svg', 'bg-yellow-500' ],
 	[ '/expand.svg', 'bg-green-500' ],
 ]
 
-const tux_base = [
-	'barroit               ',
-	'$ locale -a           ',
-	'zh_CN.utf8            ',
-	'en_US.utf8            ',
-	'ja_JP.utf8            ',
-	'$ uname -sr           ',
-	'Jiamu Sun 0.39.01-negi',
+const history = [
+	[
+		'$ whoami',
+		'barroit                                       .--.',
+	],
+	[
+		'$ locale -a                                  |o_o |',
+		'zh_CN.utf8                                   |:_/ |',
+		'en_US.utf8                                  //   \\ \\',
+		'ja_JP.utf8                                 (|     | )',
+	],
+	[
+		'$ uname -sr                               /\'\\_   _/`\\',
+		'Jiamu Sun 0.39.01-negi                    \\___)=(___/',
+	],
+	[
+		'$ uptime -p',
+		`up ${ age_str }`,
+	],
 ]
 
-const tux = [
-	'    .--.',
-	'   |o_o |',
-	'   |:_/ |',
-	'  //   \\ \\',
-	' (|     | )',
-	'/\'\\_   _/`\\',
-	'\\___)=(___/',
+const history_sm = [
+	[
+		'$ whoami',
+		'barroit                     .--.',
+	],
+	[
+		'$ locale -a                |o_o |',
+		'zh_CN.utf8                 |:_/ |',
+		'en_US.utf8                //   \\ \\',
+		'ja_JP.utf8               (|     | )',
+	],
+	[
+		'$ uname -sr             /\'\\_   _/`\\',
+		'Jiamu Sun 0.39.01-negi  \\___)=(___/',
+	],
+	[
+		'$ uptime -p',
+		`up ${ age_str }`,
+	],
 ]
 
-function TerminalHead()
+const cowsay = [
+	'$ fortune | cowsay -f duck',
+	'.--------------------------------.',
+	'| In solitude, Vocaloids stayed. |',
+	'\'--------------------------------\'',
+	"      \\",
+	"       \\ >()_",
+	"          (__)__ _",
+]
+
+function Barroit({ className })
 {
 return (
-<div className='flex justify-between items-center bg-[#353535] select-none
-                py-1 px-2 rounded-t-md border-t border-x border-[#616161]'>
-  <img src='/2024-le-flag-only.svg'
-       className='hidden md:block' alt='' aria-hidden='true'/>
-  <p className='font-bold
-                text-sm
-                sm:text-base
-                4xl:text-2xl'
-     aria-hidden='true'>
-     SUPERFORTRESS:
-     <span className='m-1'>~/git/barroit.sh</span>
-  </p>
-  <div className='relative'>
-    <div className='group center-y right-0 flex gap-x-2 pl-5 py-1'>
-    {cntl_icons.map(([ icon, color ], i) => (
-      <div key={ i }
-           className={ `rounded-full cursor-pointer ${ color }` }>
-        <img src={ icon } alt='' aria-hidden='true'
-             className='scale-75 opacity-0
-                        group-hover:opacity-100 duration-200'/>
-      </div>
-    ))}
-    </div>
-    <TheFuckingContent length={ 10 }/>
+<article className={ className }>
+  <div className='font-[ScoreDozer] xl:ml-[0.5vw]
+		  text-[13vw] xl:text-[8.2vw]
+		  text-shadow-[-0.5vw_0_#b8468a,0.5vw_0_#3781b5]
+		  xl:text-shadow-[-0.35vw_0_#b8468a,0.35vw_0_#3781b5]'>
+    <span className='tracking-[2.7vw] xl:tracking-[2.5vw]'>BARROI</span>
+    <span>T</span>
   </div>
-</div>
+  <p className='font-[SpaceMono] text-right font-bold italic
+		-mt-[2vh] xl:-mt-[5vh] text-[4vw] xl:text-[2vw]'>
+    Powered by Hatsune Miku
+  </p>
+</article>
 ) /* return */
 }
 
-function TerminalBody()
+function History({ className })
 {
 	const input = useRef()
 
@@ -86,48 +106,32 @@ function TerminalBody()
 		return () => clearInterval(id)
 	}, [])
 
+	const lines = history.flat()
+	const lines_sm = history_sm.flat()
+
 return (
-<article className='flex-1 p-1 pr-5 rounded-b-md border cursor-text
-                    border-[#616161] border-t-[#101010] selection:bg-[#314f78]
-                    *:text-[1.14rem]/8
-                    sm:*:text-[1.27rem]/9
-                    md:*:text-[1.68rem]/9
-                    lg:*:text-[1.7rem]/9
-                    2xl:*:text-[1.2rem]/[1.8rem]
-                    3xl:*:text-[1.7rem]/9
-                    4xl:*:text-[2.9rem]/16'>
-  <pre>{ '$ whoami'                             }</pre>
-{tux_base.map((line, i) => (
-  <pre key={ i } className='hidden 2xl:block'>
-    { line + ' '.repeat(22) + tux[i] }
-  </pre>
-))}
-{tux_base.map((line, i) => (
-  <pre key={ i } className='hidden xl:block 2xl:hidden'>
-    { line + ' '.repeat(8) + tux[i] }
-  </pre>
-))}
-{tux_base.map((line, i) => (
-  <pre key={ i } className='hidden lg:block xl:hidden'>
-    { line + ' '.repeat(8) + tux[i] }
-  </pre>
-))}
-{tux_base.map((line, i) => (
-  <pre key={ i } className='lg:hidden'>
+<article className={ clsx(className,
+			  'overflow-y-auto',
+			  'cursor-text selection:bg-[#314f78]',
+			  'border-[0.1vw] rounded-b-[0.5vw]',
+			  'border-[#ececec] dark:border-[#616161]',
+			  'border-t-[#e5e5e5] dark:border-t-[#101010]',
+			  'text-[4vw]/[5vw] xl:text-[1.2vw]/[1.6vw]') }>
+{lines_sm.map((line, i) => (
+  <pre key={ i } className='xl:hidden'>
     { line }
   </pre>
 ))}
-  <pre>{ '$ uptime -p'                          }</pre>
-  <pre className='text-pretty xl:rext-nowrap'>
-    { `up ${ age_str }` }
+{lines.map((line, i) => (
+  <pre key={ i } className='bg-terminal w-min hidden xl:block'>
+    { line }
   </pre>
-  <pre>{ '$ fortune | cowsay -f duck'           }</pre>
-  <pre>{ '.--------------------------------.'   }</pre>
-  <pre>{ '| In solitude, Vocaloids stayed. |'   }</pre>
-  <pre>{ '\'--------------------------------\'' }</pre>
-  <pre>{ '      \\'                             }</pre>
-  <pre>{ '       \\ >()_'                       }</pre>
-  <pre>{ '          (__)__ _'                   }</pre>
+))}
+{cowsay.map((line, i) => (
+  <pre key={ i }>
+    { line }
+  </pre>
+))}
   <pre ref={ input } className='after:content-[attr(data-cursor)]'>
     { '$ ' }
   </pre>
@@ -135,95 +139,62 @@ return (
 ) /* return */
 }
 
-function Terminal()
+function Terminal({ className })
 {
 return (
-<section className='relative flex flex-col bg-[#1e1e1e] w-full xl:w-9/10'>
-  <TerminalHead/>
-  <TerminalBody/>
-  <div className='absolute hidden lg:block
-                  bottom-10
-                  right-10
-                  md:right-20
-                  lg:right-10
-                  xl:bottom-15
-                  xl:right-30
-                  3xl:bottom-25
-                  3xl:right-40
-                  4xl:bottom-40
-                  4xl:right-70'>
+<section className={ clsx(className, 'bg-terminal',
+			  'relative overflow-hidden flex flex-col') }>
+  <div className='p-[1.5vw] xl:p-[0.4vw]
+		  grid grid-cols-3 items-center
+		  bg-[#ececec] dark:bg-[#353535]
+		  border-t-[0.1vw] border-x-[0.1vw] rounded-t-[0.5vw]
+		  border-[#f6f6f6] dark:border-[#616161] select-none'>
+    <img src='/2024-le-flag-only.svg'
+	 className='w-[3vw] xl:w-[1.5vw]' alt='' aria-hidden='true'/>
+    <p className='justify-self-center font-bold text-[2vw] xl:text-[1vw]'
+       aria-hidden='true'>
+      SUPERFORTRESS:
+      <span className='m-[0.4vw]'>~/git/barroit.sh</span>
+    </p>
+    <div className='relative'>
+      <div className='group absolute center-y right-0
+		      pl-[3vw] py-[0.9vw] flex gap-x-[0.8vw]'>
+      {wcntl.map(([ icon, color ], i) => (
+	<div key={ i }
+	     className={ clsx('w-[2.5vw] h-[2.5vw]',
+			      'xl:w-[1.1vw] xl:h-[1.1vw]',
+			      'flex justify-center items-center',
+			      'rounded-full cursor-pointer', color) }>
+	  <img src={ icon } alt='' aria-hidden='true'
+	       className='scale-60 duration-200
+			  opacity-0 group-hover:opacity-100'/>
+	</div>
+      ))}
+      </div>
+    </div>
+  </div>
+  <History className='h-full z-1 p-[0.5vw]'/>
+  <div className='absolute right-[8vw] bottom-[2vw] h-[10vw] hidden xl:flex'>
     <img src='/miku-working.png'
-         alt='' aria-hidden='true' draggable='false'
-         className='object-contain select-none
-                    scale-120
-                    xl:scale-140
-                    2xl:scale-120
-                    3xl:scale-150
-                    4xl:scale-220'/>
+	 className='object-cover select-none'
+	 alt='' aria-hidden='true' draggable='false'/>
   </div>
 </section>
-) /* return */
-}
-
-function Barroit()
-{
-return (
-  <article className='w-min mt-5 3xl:mt-0 mb-10 md:mb-14 4xl:mb-25'>
-    <div className='font-[ScoreDozer] xl:ml-1.5
-                    text-[4rem]
-                    sm:text-[4.5rem]
-                    md:text-[6rem]
-                    lg:text-[7.5rem]
-                    xl:text-[9rem]
-                    2xl:text-[7rem]
-                    3xl:text-[11rem]
-                    4xl:text-[18rem]
-                    text-shadow-[-0.1rem_0_#b8468a,0.1rem_0_#3781b5]
-                    md:text-shadow-[-0.18rem_0_#b8468a,0.18rem_0_#3781b5]
-                    lg:text-shadow-[-0.28rem_0_#b8468a,0.28rem_0_#3781b5]'>
-      <span className='tracking-[0.9rem]
-                       md:tracking-[1.2rem]
-                       lg:tracking-[2rem]
-                       xl:tracking-[3rem]'>
-        BARROI
-      </span>
-      <span>T</span>
-    </div>
-    <p className='text-right
-                  -mt-5
-                  md:-mt-8
-                  lg:-mt-10
-                  xl:-mt-15
-                  2xl:-mt-10
-                  4xl:-mt-20
-                  text-[0.95rem]
-                  sm:text-[1.05rem]
-                  md:text-[1.4rem]
-                  lg:text-[1.8rem]
-                  xl:text-[2rem]
-                  2xl:text-[1.7rem]
-                  3xl:text-[2.5rem]
-                  4xl:text-[3rem]'>
-      Powered by Hatsune Miku
-    </p>
-  </article>
 ) /* return */
 }
 
 export default function Hero()
 {
 return (
-<section className='flex-1 2xl:flex justify-between'>
-  <div className='flex-2 flex flex-col items-center 2xl:items-stretch
-                  3xl:pr-50
-                  4xl:pr-70'>
-    <Barroit/>
-    <Terminal/>
+<section className='h-[90vh] xl:flex justify-between pb-[1vh]'>
+  <div className='flex flex-col items-center xl:items-stretch'>
+    <Barroit className='my-[3vh] xl:my-0'/>
+    <Terminal className='mt-[2vh] xl:mt-[5vh] w-[90vw] xl:w-[54vw] h-full'/>
   </div>
-  <div className='flex-1 hidden 2xl:flex 3xl:mr-10 4xl:mr-30'>
+  <div className='hidden xl:flex'>
     <img src='/miku-headpat.png'
-         className='lightbase dark:darkbase object-cover select-none'
-         alt='miku needs your headpat' draggable='false'/>
+	 className='lightbase dark:darkbase object-cover select-none'
+	 alt='miku needs your headpat' draggable='false'/>
   </div>
 </section>
 ) /* return */

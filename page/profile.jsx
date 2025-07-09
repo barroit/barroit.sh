@@ -11,12 +11,9 @@ export default function Profile()
 return (
 <>
   <Header/>
-  <main className='flex-1 flex flex-col min-h-[92vh] strip-bg'>
+  <main className='strip-bg'>
     <Hero/>
   </main>
-  <footer>
-    footer
-  </footer>
 </>
 ) /* return */
 }

@@ -3,7 +3,7 @@
 .PHONY: dev build preview
 
 dev:
-	npm run dev
+	npm run dev -- --host
 
 build:
 	npm run build
