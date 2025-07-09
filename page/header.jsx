@@ -65,11 +65,12 @@ function Strip()
 	})
 
 	const phase = useRef(rand_once())
-	const k = 0.9
+	const ampl = useRef(0.7)
+	const freq = 0.9
 	const period = Math.PI * 2
-	const fn = (r, c) => Math.sin(k * r + c)
+	const wave_fn = (r, c) => ampl.current * Math.sin(freq * r + c)
 
-	const smooth_y = (r, c) => `translate3d(0, ${ fn(r, c) }rem, 0)`
+	const smooth_y = (r, c) => `translate3d(0, ${ wave_fn(r, c) }rem, 0)`
 	const update_y = (el, r, c) => el.style.transform = smooth_y(r, c)
 
 	useEffect(() =>
@@ -77,14 +78,41 @@ function Strip()
 		if (!enabled)
 			return
 
+		let fps_avg = 39
+		let ts_prev = performance.now()
+		let counting = 300
+
+		let skip
+		let skips = 0
+
 		const imgs = Array.from(box.current.children)
 		let id
-		const wave = () =>
+		const wave = ts_next =>
 		{
-			for (let i = 0; i < imgs.length; i++)
-				update_y(imgs[i], i, phase.current)
+			if (counting) {
+				const ts_delta = (ts_next - ts_prev)
+				const fps_next = 1000 / ts_delta
 
-			phase.current = (phase.current + 0.09) % period
+				fps_avg = (fps_avg + fps_next) / 2
+				ts_prev = ts_next
+				counting--
+
+				skip = fps_avg / 60
+
+				if (skip < 1) {
+					skip = 1
+					counting = 0
+				}
+			}
+
+			if (++skips > skip) {
+				for (let i = 0; i < imgs.length; i++)
+					update_y(imgs[i], i, phase.current)
+
+				phase.current = (phase.current + 0.09) % period
+				skips = 0
+			}
+
 			id = requestAnimationFrame(wave)
 		}
 
