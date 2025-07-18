@@ -8,65 +8,54 @@
 .strip-bg {
 	background-image: repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
 			  repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
 			  repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
 			  repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
 			  repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
 			  repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 0.8rem,
-						    transparent 0.8rem,
-						    transparent 1.6rem);
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin);
 
-	background-size: 0.2rem 100%;
+	background-size: 0.4vmin 100%;
 	background-repeat: no-repeat;
 
-	@apply bg-position-[6rem,13rem,20rem,28rem]
-	       md:bg-position-[7rem,15rem,23rem,32rem,43rem]
-	       lg:bg-position-[8rem,17rem,26rem,37rem,48rem,60rem]
-	       xl:bg-position-[9rem,19rem,30rem,42rem,55rem,69rem]
-	       2xl:bg-position-[11rem,23rem,36rem,51rem,67rem,85rem,104rem];
+	@apply bg-position-[20vmin,43vmin,71vmin]
+	       xl:bg-position-[11vmin,24vmin,39vmin,55vmin,72vmin,92vmin];
 }
 
-.bg-terminal {
-	@apply bg-[#ffffff] dark:bg-[#1e1e1e];
+::-webkit-scrollbar {
+	width: 1vmin;
+}
+
+::-webkit-scrollbar-thumb {
+	border: 0.3vmin solid transparent;
+	background-clip: padding-box;
+	border-radius: 39vmin;
+
+	@apply bg-[#7d7d7d] dark:bg-[#a9a9a9];
+}
+
+::-webkit-scrollbar-thumb:hover {
+	border-width: 0.2vmin;
 }

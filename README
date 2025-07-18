@@ -1,5 +1,10 @@
 barroit.sh
 ==========
 
-This project is profile page of barroit. Name matches domain barroit.sh.
-A11y aligns with WCAG 2.1 AA.
+This repository is the profile page of barroit. It's hosted on barroit.sh and
+licensed under GPL-3.0-or-later. Some files use their own license, like fonts
+and artworks.
+
+This site follows WCAG 2.1 AA a11y guidelines, but disables zoom via CSS. This
+is intentional, as allowing zoom screws up layout consistency across devices.
+That's not tolerated, so layout wins and zoom gets dropped.
