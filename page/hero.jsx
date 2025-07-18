@@ -165,7 +165,7 @@ return (
     <pre ref={ input } className='after:content-[attr(data-cursor)]'>
       { '$ ' }
     </pre>
-    <div className='absolute right-[3cqw] bottom-[3cqh] h-[20cqh] xl:flex'>
+    <div className='absolute right-[3cqmin] bottom-[3cqmin] h-[20cqh] xl:flex'>
       <img src='/miku-working.png'
 	 className='object-cover select-none'
 	 alt='' aria-hidden='true' draggable='false'/>
