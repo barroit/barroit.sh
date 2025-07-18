@@ -3,6 +3,8 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
+import clsx from 'clsx'
+import debounce from 'debounce'
 import Cookies from 'js-cookie'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -34,16 +36,16 @@ const ctrl_colors = [ 'bg-red-500', 'bg-yellow-500', 'bg-green-500' ]
 function Lustrous()
 {
 return (
-<div className='xl:hidden 2xl:block text-nowrap'>
-  <p className='hidden lg:block'>
+<div className='md:hidden xl:block text-nowrap'>
+  <p className='hidden 2xl:block'>
     let skyColor = memory.get("last_seen_sky");
   </p>
-  <p className='hidden md:block lg:hidden'>
-    log.error("stellar_signal_lost");
+  <p className='hidden xl:block 2xl:hidden'>
+    memory.get("last_seen_sky");
   </p>
-  <div className='flex md:hidden items-center gap-x-2 h-full ml-1'>
+  <div className='flex md:hidden gap-x-[2vmin]'>
   {ctrl_colors.map((color, i) => (
-    <div key={ i } className={ 'p-2 rounded-full ' + color }></div>
+    <div key={ i } className={ clsx('p-[1.5vmin] rounded-full', color) }></div>
   ))}
   </div>
 </div>
@@ -133,12 +135,27 @@ function Strip()
 		}
 	}, [ enabled ])
 
+	const sync_y_force = () =>
+	{
+		const imgs = box.current.children
+		const img = box.current.children[0]
+		const styles = getComputedStyle(img)
+		const height = parseFloat(styles.height)
+
+		ampl.current = (height ? height : 16) / 50
+
+		for (let i = 0; i < box.current.children.length; i++)
+			update_y(imgs[i], i, phase.current)
+	}
+	const sync_y = debounce(sync_y_force, 200)
+
 	useEffect(() =>
 	{
-		const imgs = Array.from(box.current.children)
+		sync_y_force()
 
-		for (let i = 0; i < imgs.length; i++)
-			update_y(imgs[i], i, phase.current)
+		window.addEventListener('resize', sync_y)
+
+		return () => window.removeEventListener('resize', sync_y)
 	}, [])
 
 	const strip_flip = event =>
@@ -148,17 +165,15 @@ function Strip()
 	}
 
 return (
-<div className='relative hidden xl:block ml-1 2xl:ml-0'>
-  <button ref={ box } onClick={ strip_flip }
-          aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
-          className={ 'center-y p-1 border-2 flex gap-x-2 min-w-max ' +
-                      (enabled ? 'border-red-600' : 'border-green-600') }>
-    {strip_icons.map(([ name, alt ], i) => (
-      <img key={ name } src={ name } className='scale-60' alt={ alt }/>
-    ))}
-  </button>
-  <TheFuckingContent length={ 60 }/>
-</div>
+<button ref={ box } onClick={ strip_flip }
+	aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
+	className={ clsx('p-[1vmin] hidden md:flex items-center gap-x-[3vmin]',
+			 'border-[0.3vmin] !rounded-[0.6vmin] duration-50',
+			 'border-green-600', enabled && 'border-red-600') }>
+  {strip_icons.map(([ name, alt ], i) => (
+    <img key={ name } src={ name } alt={ alt } className='w-[2vmin] [2vmin]'/>
+  ))}
+</button>
 ) /* return */
 }
 
@@ -166,13 +181,13 @@ function Nav()
 {
 return (
 <nav>
-  <ul className='flex items-center h-full'>
+  <ul className='flex'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>
-      <Shell left='[' right=']'>
-        <Totheir href={ url }>
-          <Flicker>{ name }</Flicker>
-        </Totheir>
+      <Shell padding='2vmin' offset='0.1vmin' move='1vmin'>
+	<Totheir href={ url } className='!decoration-[0.4vmin]'>
+	  <Flicker>{ name }</Flicker>
+	</Totheir>
       </Shell>
     </li>
   ))}
@@ -184,8 +199,10 @@ return (
 export default function Header()
 {
 return (
-<header className='header flex justify-between pb-4 pt-5
-                   border-b-5 border-[#4d4d4d] dark:border-[#4d4d4d]'>
+<header className='h-[7.5dvh] pt-[0.5dvh] px-[1vmin]
+		   flex justify-between items-center
+		   text-[3vmin] border-b-[0.5vmin]
+		   border-[#4d4d4d] dark:border-[#4d4d4d]'>
   <Lustrous/>
   <Strip/>
   <Nav/>
