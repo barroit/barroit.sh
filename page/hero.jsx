@@ -73,7 +73,7 @@ const cowsay = [
 function Barroit({ className })
 {
 return (
-<article className={ className }>
+<header className={ className }>
   <div className='font-[x14y20pxScoreDozer] text-[13vw] xl:text-[8vw]
 		  text-shadow-[-0.5vmin_0_#b8468a,0.5vmin_0_#3781b5]'>
     <span className='tracking-[2.7vw] xl:tracking-[2.5vw]'>BARROI</span>
@@ -83,17 +83,17 @@ return (
 		font-[x16y32pxGridGazer] text-[4vw] xl:text-[2vw]'>
     Powered by Hatsune Miku
   </p>
-</article>
+</header>
 ) /* return */
 }
 
 function Toolbar({ className })
 {
 return (
-<div className={ clsx(className, 'flex justify-between items-center',
-		      'select-none bg-[#ececec] dark:bg-[#353535]',
-		      'border-t border-x rounded-t-[1vmin]',
-		      'border-[#f6f6f6] dark:border-[#616161]') }>
+<header className={ clsx(className, 'flex justify-between items-center',
+			 'select-none bg-[#ececec] dark:bg-[#353535]',
+			 'border-t border-x rounded-t-[1vmin]',
+			 'border-[#f6f6f6] dark:border-[#616161]') }>
   <img src='/2024-le-flag-only.svg'
        className='w-[2vmin]' alt='' aria-hidden='true'/>
   <p className='font-bold text-[2vw] xl:text-[0.8vw]'
@@ -115,7 +115,7 @@ return (
     ))}
     </div>
   </div>
-</div>
+</header>
 ) /* return */
 }
 
@@ -140,12 +140,12 @@ function History({ className })
 	const lines_sm = history_sm.flat()
 
 return (
-<article className={ clsx(className,
-			  '@container relative overflow-y-auto',
-			  'border rounded-b-[0.5vmin]',
-			  'border-[#ececec] dark:border-[#616161]',
-			  'border-t-[#e5e5e5] dark:border-t-[#101010]',
-			  'text-[4vw]/[5vmin] xl:text-[1.2vw]/[3vmin]') }>
+<div className={ clsx(className,
+		      '@container relative overflow-y-auto',
+		      'border rounded-b-[0.5vmin]',
+		      'border-[#ececec] dark:border-[#616161]',
+		      'border-t-[#e5e5e5] dark:border-t-[#101010]',
+		      'text-[4vw]/[6vmin] xl:text-[1.2vw]/[3vmin]') }>
   <div className='cursor-text selection:bg-[#314f78]'>
   {lines_sm.map((line, i) => (
     <pre key={ i } className='xl:hidden text-wrap'>
@@ -165,40 +165,41 @@ return (
     <pre ref={ input } className='after:content-[attr(data-cursor)]'>
       { '$ ' }
     </pre>
-    <div className='absolute right-[3cqmin] bottom-[3cqmin] h-[20cqh] xl:flex'>
+    <div className='absolute right-[3cqmin] bottom-[3cqmin] h-[20cqh]
+		    hidden md:flex'>
       <img src='/miku-working.png'
 	 className='object-cover select-none'
 	 alt='' aria-hidden='true' draggable='false'/>
     </div>
   </div>
-</article>
+</div>
 ) /* return */
 }
 
 function Terminal({ className })
 {
 return (
-<section className={ clsx(className, 'flex flex-col',
-			  'overflow-hidden bg-[#ffffff] dark:bg-[#1e1e1e]') }>
+<article className={ clsx(className, 'flex flex-col',
+		      'overflow-hidden bg-[#ffffff] dark:bg-[#1e1e1e]') }>
   <Toolbar className='p-[0.5vmin]'/>
   <History className='h-full p-[0.5vmin]'/>
-</section>
+</article>
 ) /* return */
 }
 
 export default function Hero()
 {
 return (
-<section className='h-[92dvh] xl:flex justify-between'>
+<div className='h-[92svh] xl:flex justify-between'>
   <div className='h-full flex flex-col items-center xl:items-start'>
-    <Barroit className='mt-[3dvh] xl:mt-0 xl:w-full px-[0.5vmin]'/>
-    <Terminal className='mt-[6dvh] xl:mt-[4dvh] w-full h-full'/>
+    <Barroit className='mt-[3svh] xl:mt-0 xl:w-full px-[0.5vmin]'/>
+    <Terminal className='mt-[6svh] xl:mt-[4svh] w-full h-full'/>
   </div>
   <div className='hidden h-full xl:flex'>
     <img src='/miku-headpat.png'
 	 className='h-full lightbase dark:darkbase object-cover select-none'
 	 alt='miku needs your headpat' draggable='false'/>
   </div>
-</section>
+</div>
 ) /* return */
 }

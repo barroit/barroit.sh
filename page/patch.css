@@ -35,13 +35,33 @@
 						    #ffffff0d 0,
 						    #ffffff0d 1.6vmin,
 						    transparent 1.6vmin,
+						    transparent 3.2vmin),
+			  repeating-linear-gradient(to bottom,
+						    #ffffff0d 0,
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
+			  repeating-linear-gradient(to bottom,
+						    #ffffff0d 0,
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
+						    transparent 3.2vmin),
+			  repeating-linear-gradient(to bottom,
+						    #ffffff0d 0,
+						    #ffffff0d 1.6vmin,
+						    transparent 1.6vmin,
 						    transparent 3.2vmin);
 
 	background-size: 0.4vmin 100%;
 	background-repeat: no-repeat;
 
-	@apply bg-position-[20vmin,43vmin,71vmin]
-	       xl:bg-position-[11vmin,24vmin,39vmin,55vmin,72vmin,92vmin];
+	background-position: 11vmin, 31vmin,  53vmin,
+			     77vmin, 104vmin, 133vmin;
+
+	@variant 2xl {
+		background-position: 8vmin,  32vmin,  58vmin,
+				     87vmin, 119vmin, 155vmin;
+	}
 }
 
 ::-webkit-scrollbar {
@@ -50,10 +70,14 @@
 
 ::-webkit-scrollbar-thumb {
 	border: 0.3vmin solid transparent;
-	background-clip: padding-box;
 	border-radius: 39vmin;
 
-	@apply bg-[#7d7d7d] dark:bg-[#a9a9a9];
+	background-clip: padding-box;
+	background-color: #7d7d7d;
+
+	@variant dark {
+		background-color: #a9a9a9;
+	}
 }
 
 ::-webkit-scrollbar-thumb:hover {

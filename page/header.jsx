@@ -199,7 +199,7 @@ return (
 export default function Header()
 {
 return (
-<header className='h-[7.5dvh] pt-[0.5dvh] px-[1vmin]
+<header className='h-[7.5svh] pt-[0.5svh] px-[1vmin]
 		   flex justify-between items-center
 		   text-[3vmin] border-b-[0.5vmin]
 		   border-[#4d4d4d] dark:border-[#4d4d4d]'>
