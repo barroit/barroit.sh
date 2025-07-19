@@ -10,7 +10,7 @@
       "build": "vite build",
       "postbuild": "scripts/reactfix.sh",
       "preview": "vite preview",
-      "deploy": "npm run build && wrangler deploy"
+      "deploy": "npm run build && npx wrangler deploy"
    },
    "dependencies": {
       "clsx": "^2.1.1",

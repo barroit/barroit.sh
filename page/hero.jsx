@@ -164,8 +164,8 @@ return (
     <pre ref={ input } className='after:content-[attr(data-cursor)]'>
       { '$ ' }
     </pre>
-    <div className='absolute right-[3cqmin] bottom-[3cqmin] h-[20cqh]
-		    hidden md:flex'>
+    <div className='absolute right-[3cqmin] bottom-[3cqmin]
+		    h-[20cqh] hidden xl:flex'>
       <img src='/miku-working.png'
 	 className='object-cover select-none'
 	 alt='' aria-hidden='true' draggable='false'/>
@@ -189,7 +189,7 @@ return (
 export default function Hero()
 {
 return (
-<div className='h-[92svh] xl:flex justify-between'>
+<div className='xl:h-[92svh] xl:flex justify-between'>
   <div className='h-full flex flex-col items-center xl:items-start'>
     <Barroit className='mt-[3svh] xl:mt-0 xl:w-full px-[0.5vmin]'/>
     <Terminal className='mt-[6svh] xl:mt-[4svh] w-full h-full'/>

@@ -5,6 +5,7 @@
 
 import Header from './header.jsx'
 import Hero from './hero.jsx'
+import Man from './man.jsx'
 
 export default function Profile()
 {
@@ -13,6 +14,7 @@ return (
   <Header/>
   <main className='strip-bg'>
     <Hero/>
+    <Man/>
   </main>
 </>
 ) /* return */

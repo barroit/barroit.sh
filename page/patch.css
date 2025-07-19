@@ -69,11 +69,11 @@
 }
 
 ::-webkit-scrollbar {
-	width: 1vmin;
+	width: 2vmin;
 }
 
 ::-webkit-scrollbar-thumb {
-	border: 0.3vmin solid transparent;
+	border: 0.7vmin solid transparent;
 	border-radius: 39vmin;
 
 	background-clip: padding-box;
@@ -85,5 +85,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	border-width: 0.2vmin;
+	border-width: 0.6vmin;
 }
