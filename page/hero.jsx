@@ -13,9 +13,9 @@ const age = age_since(1112745600000)
 const age_str = fmt_age(age)
 
 const wcntl = [
-	[ '/close.svg', 'bg-red-500' ],
-	[ '/minimize.svg', 'bg-yellow-500' ],
-	[ '/expand.svg', 'bg-green-500' ],
+	[ '/close.svg', 'bg-red-500 hover:bg-red-400' ],
+	[ '/minimize.svg', 'bg-yellow-500 hover:bg-yellow-400' ],
+	[ '/expand.svg', 'bg-green-500 hover:bg-green-400' ],
 ]
 
 const history = [
@@ -76,10 +76,10 @@ return (
 <header className={ className }>
   <div className='font-[x14y20pxScoreDozer] text-[13vw] xl:text-[8vw]
 		  text-shadow-[-0.5vmin_0_#b8468a,0.5vmin_0_#3781b5]'>
-    <span className='tracking-[2.7vw] xl:tracking-[2.5vw]'>BARROI</span>
+    <span className='tracking-[2.7vmin] xl:tracking-[5vmin]'>BARROI</span>
     <span>T</span>
   </div>
-  <p className='-mt-[5vmin] text-right italic
+  <p className='-mt-5 text-right italic
 		font-[x16y32pxGridGazer] text-[4vw] xl:text-[2vw]'>
     Powered by Hatsune Miku
   </p>
@@ -95,21 +95,20 @@ return (
 			 'border-t border-x rounded-t-[1vmin]',
 			 'border-[#f6f6f6] dark:border-[#616161]') }>
   <img src='/2024-le-flag-only.svg'
-       className='w-[2vmin]' alt='' aria-hidden='true'/>
+       className='w-2' alt='' aria-hidden='true'/>
   <p className='font-bold text-[2vw] xl:text-[0.8vw]'
      aria-hidden='true'>
     SUPERFORTRESS:
-    <span className='m-[0.4vmin]'>~/git/barroit.sh</span>
+    <span className='m-[0.4vmin]'>/boot/efi/EFI/barroit</span>
   </p>
   <div className='relative'>
-    <div className='group absolute center-y -right-[6vmin]
-		    px-[6vmin] py-[1vmin] flex gap-x-[1vmin]'>
+    <div className='group absolute center-y -right-6 px-6 py-1 flex gap-x-1'>
     {wcntl.map(([ icon, color ], i) => (
       <div key={ i }
 	   className={ clsx(color,
-			    'w-max p-[0.2vmin] rounded-full cursor-pointer') }>
+			    'p-[0.2vmin] w-max rounded-full duration-200') }>
         <img src={ icon }
-	     className='w-[1vmin] duration-200 opacity-0 group-hover:opacity-100'
+	     className='w-1 duration-200 opacity-0 group-hover:opacity-100'
 	     alt='' aria-hidden='true'/>
       </div>
     ))}
@@ -145,7 +144,7 @@ return (
 		      'border rounded-b-[0.5vmin]',
 		      'border-[#ececec] dark:border-[#616161]',
 		      'border-t-[#e5e5e5] dark:border-t-[#101010]',
-		      'text-[4vw]/[6vmin] xl:text-[1.2vw]/[3vmin]') }>
+		      'text-[4vw]/6 xl:text-[1.2vw]/3') }>
   <div className='cursor-text selection:bg-[#314f78]'>
   {lines_sm.map((line, i) => (
     <pre key={ i } className='xl:hidden text-wrap'>

@@ -5,6 +5,10 @@
 
 @import './index.css';
 
+@theme {
+	--spacing: 1vmin;
+}
+
 .strip-bg {
 	background-image: repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,

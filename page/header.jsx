@@ -43,7 +43,7 @@ return (
   <p className='hidden xl:block 2xl:hidden'>
     memory.get("last_seen_sky");
   </p>
-  <div className='flex md:hidden gap-x-[2vmin]'>
+  <div className='flex md:hidden gap-x-2'>
   {ctrl_colors.map((color, i) => (
     <div key={ i } className={ clsx('p-[1.5vmin] rounded-full', color) }></div>
   ))}
@@ -167,11 +167,11 @@ function Strip()
 return (
 <button ref={ box } onClick={ strip_flip }
 	aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
-	className={ clsx('p-[1vmin] hidden md:flex items-center gap-x-[3vmin]',
+	className={ clsx('p-1 hidden md:flex items-center gap-x-3',
 			 'border-[0.3vmin] !rounded-[0.6vmin] duration-50',
 			 'border-green-600', enabled && 'border-red-600') }>
   {strip_icons.map(([ name, alt ], i) => (
-    <img key={ name } src={ name } alt={ alt } className='w-[2vmin] [2vmin]'/>
+    <img key={ name } src={ name } alt={ alt } className='w-2'/>
   ))}
 </button>
 ) /* return */
@@ -199,9 +199,9 @@ return (
 export default function Header()
 {
 return (
-<header className='h-[7.5svh] pt-[0.5svh] px-[1vmin]
+<header className='h-[7.5svh] pt-[0.5svh] px-1
 		   flex justify-between items-center
-		   text-[3vmin] border-b-[0.5vmin]
+		   text-[3vw] xl:text-[1.5vw] border-b-[0.5vmin]
 		   border-[#4d4d4d] dark:border-[#4d4d4d]'>
   <Lustrous/>
   <Strip/>
