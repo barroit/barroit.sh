@@ -49,7 +49,7 @@ return (
 	    className='py-2 px-2 motion-safe:pt-5 motion-safe:px-4'
 	    aria-hidden='true'>
       <img ref={ img } src='/arrow-circle-up.svg'
-	   className='w-10 invert dark:invert-0
+	   className='w-10 light:invert
 		      motion-safe:animate-bounce will-change-transform'
 	   alt='' aria-hidden='true'/>
     </button>

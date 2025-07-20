@@ -171,7 +171,8 @@ return (
 			 'border-[0.3vmin] !rounded-[0.6vmin] duration-50',
 			 'border-green-600', enabled && 'border-red-600') }>
   {strip_icons.map(([ name, alt ], i) => (
-    <img key={ name } src={ name } alt={ alt } className='w-2'/>
+    <img key={ name } src={ name } alt={ alt }
+	 className='w-2 light:invert'/>
   ))}
 </button>
 ) /* return */
@@ -204,7 +205,7 @@ return (
 <header className='section h-[7.5svh] pt-[0.5svh] px-1
 		   flex justify-between items-center
 		   text-[3vw] xl:text-[1.5vw] border-b-[0.5vmin]
-		   border-[#4d4d4d] dark:border-[#4d4d4d]'>
+		   border-[#d9d9d9] dark:border-[#4d4d4d]'>
   <Lustrous/>
   <Strip/>
   <Nav/>

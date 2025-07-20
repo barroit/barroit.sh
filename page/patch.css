@@ -10,51 +10,23 @@
 }
 
 .dashed-strip {
-	background-image: repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin),
-			  repeating-linear-gradient(to bottom,
-						    #ffffff0d 0,
-						    #ffffff0d 1.6vmin,
-						    transparent 1.6vmin,
-						    transparent 3.2vmin);
+	--dashed-strip-line: #0000000d;
+
+	@variant dark {
+		--dashed-strip-line: #ffffff0d;
+	}
+
+	--dashed-strip: to bottom,
+			var(--dashed-strip-line) 0,
+			var(--dashed-strip-line) 1.6vmin,
+			transparent 1.6vmin, transparent 3.2vmin;
+
+	background-image: repeating-linear-gradient(var(--dashed-strip)),
+			  repeating-linear-gradient(var(--dashed-strip)),
+			  repeating-linear-gradient(var(--dashed-strip)),
+			  repeating-linear-gradient(var(--dashed-strip)),
+			  repeating-linear-gradient(var(--dashed-strip)),
+			  repeating-linear-gradient(var(--dashed-strip));
 
 	background-size: 0.4vmin 100%;
 	background-repeat: no-repeat;
@@ -63,8 +35,8 @@
 			     77vmin, 104vmin, 133vmin;
 
 	@variant 2xl {
-		background-position: 8vmin,  32vmin,  58vmin,
-				     87vmin, 119vmin, 155vmin;
+		background-position: 19vmin,  43vmin,  69vmin,
+				     98vmin, 130vmin, 166vmin;
 	}
 }
 
@@ -93,6 +65,10 @@ to {
 
 	opacity: 30%;
 
+	@variant light {
+		filter: invert(100%);
+	}
+
 	@variant motion-safe {
 		animation: scroll-stars 5s linear infinite;
 		will-change: transform;
@@ -101,6 +77,14 @@ to {
 
 .section {
 	margin: 0 5vw 0 5vw;
+}
+
+.term-bg {
+	background-color: #fefefe;
+
+	@variant dark {
+		background-color: #1e1e1e;
+	}
 }
 
 ::-webkit-scrollbar {

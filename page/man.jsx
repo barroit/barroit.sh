@@ -70,13 +70,12 @@ export default function Man()
 return (
 <div className='section @container h-[100svh]
 		flex justify-center items-center'>
-  <article className='relative *:border-[0.4vmin] *:border-pink-700
-		      *:lightbase *:dark:darkbase'>
-    <header className='relative px-2 inline-block'>
+  <article className='relative *:border-[0.4vmin] *:border-pink-700'>
+    <header className='relative px-2 inline-block lightbase dark:darkbase'>
       <h1 className='!text-[4vmin]'>README</h1>
     </header>
-    <div className='-mt-2 px-2 xl:w-[90cqw] h-[85cqh] xl:h-[75cqh]
-		    overflow-auto'>
+    <div className='term-bg -mt-2 px-2
+		    xl:w-[90cqw] h-[85cqh] xl:h-[75cqh] overflow-auto'>
       <div className='mt-4'></div>
       <Mander>
 	<BarroitMan/>
