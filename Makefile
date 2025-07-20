@@ -10,3 +10,6 @@ build:
 
 preview:
 	npm run preview
+
+deploy:
+	npm run deploy
