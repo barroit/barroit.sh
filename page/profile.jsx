@@ -12,9 +12,12 @@ export default function Profile()
 return (
 <>
   <Header/>
-  <main className='strip-bg'>
+  <main className='dashed-strip'>
     <Hero/>
-    <Man/>
+    <div className='relative overflow-hidden'>
+      <div className='star-strip'></div>
+      <Man/>
+    </div>
   </main>
 </>
 ) /* return */

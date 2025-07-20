@@ -9,7 +9,7 @@
 	--spacing: 1vmin;
 }
 
-.strip-bg {
+.dashed-strip {
 	background-image: repeating-linear-gradient(to bottom,
 						    #ffffff0d 0,
 						    #ffffff0d 1.6vmin,
@@ -66,6 +66,41 @@
 		background-position: 8vmin,  32vmin,  58vmin,
 				     87vmin, 119vmin, 155vmin;
 	}
+}
+
+@keyframes scroll-stars {
+
+from {
+	transform: translate3d(0, 0, 0);
+}
+
+to {
+	transform: translate3d(5vmax, -5vmax, 0);
+}
+
+} /* scroll-stars */
+
+.star-strip {
+	position: absolute;
+	top: 0;
+	left: -5vmax;
+
+	background-image: url('/star-strip.png');
+	background-size: 10vmax auto;
+
+	width: 110vmax;
+	height: 110vmax;
+
+	opacity: 30%;
+
+	@variant motion-safe {
+		animation: scroll-stars 5s linear infinite;
+		will-change: transform;
+	}
+}
+
+.section {
+	margin: 0 5vw 0 5vw;
 }
 
 ::-webkit-scrollbar {

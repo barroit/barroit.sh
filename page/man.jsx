@@ -68,7 +68,8 @@ return (
 export default function Man()
 {
 return (
-<div className='@container h-[100svh] flex justify-center items-center'>
+<div className='section @container h-[100svh]
+		flex justify-center items-center'>
   <article className='relative *:border-[0.4vmin] *:border-pink-700
 		      *:lightbase *:dark:darkbase'>
     <header className='relative px-2 inline-block'>
@@ -97,7 +98,7 @@ return (
       </article>
     ))}
       <Mander>
-	<BarroitMan/>
+	<p>Barroit 0.39.01-negi</p>
 	<p>2025-07-20</p>
 	<BarroitMan/>
       </Mander>

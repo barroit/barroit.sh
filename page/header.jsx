@@ -180,11 +180,13 @@ return (
 function Nav()
 {
 return (
-<nav>
+<nav className='portrait:pointer-coarse:text-[5vw]'>
   <ul className='flex'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>
-      <Shell padding='2vmin' offset='0.1vmin' move='1vmin'>
+      <Shell className='px-2 portrait:pointer-coarse:px-4
+			before:left-[0.2vmin] after:right-[0.2vmin]
+			hover:before:-translate-x-1 hover:after:translate-x-1'>
 	<Totheir href={ url } className='!decoration-[0.4vmin]'>
 	  <Flicker>{ name }</Flicker>
 	</Totheir>
@@ -199,7 +201,7 @@ return (
 export default function Header()
 {
 return (
-<header className='h-[7.5svh] pt-[0.5svh] px-1
+<header className='section h-[7.5svh] pt-[0.5svh] px-1
 		   flex justify-between items-center
 		   text-[3vw] xl:text-[1.5vw] border-b-[0.5vmin]
 		   border-[#4d4d4d] dark:border-[#4d4d4d]'>

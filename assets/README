@@ -7,8 +7,11 @@ project:
 	miku-headpat.png
 	miku-working.png
 
-These png images are derived from ASCII art obtained from anime.ja.utf8art.com,
-which allows free reuse and modification in the spirit of ASCII art culture,
-but without an explicit license.
+	star-strip.png
 
-No copyright claim is made over these png images.
+miku-headpat.png and miku-working.png are derived from ASCII art obtained from
+anime.ja.utf8art.com, which allows free reuse and modification in the spirit of
+ASCII art culture, but without an explicit license. No copyright claim is made
+over these png images.
+
+star-strip.png is licensed under LicenseRef-MDM-1.0.
