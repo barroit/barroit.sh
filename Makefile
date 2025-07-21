@@ -1,15 +1,27 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-.PHONY: dev build preview
+.PHONY: reactfix dev vite-build local deploy
 
 dev:
-	npm run dev -- --host
+
+reactfix:
+	scripts/reactfix.sh
 
 build:
-	npm run build
+	mkdir build
 
-preview:
-	npm run preview
+build/host: build
+	ip -4 -brief -json -pretty address show scope global | \
+	jq --raw-output .[0].addr_info.[0].local >build/host
 
-deploy:
-	npm run deploy
+dev: reactfix build/host
+	npx vite --host $$(cat build/host)
+
+vite-build:
+	npx vite build
+
+local: build/host reactfix vite-build
+	npx wrangler dev --ip $$(cat build/host)
+
+deploy: reactfix vite-build
+	npx wrangler deploy

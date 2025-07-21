@@ -3,15 +3,6 @@
    "name": "barroit.sh",
    "type": "module",
    "homepage": "https://github.com/barroit/barroit.sh",
-   "scripts": {
-      "predev": "scripts/reactfix.sh",
-      "dev": "vite",
-      "prebuild": "scripts/reactfix.sh",
-      "build": "vite build",
-      "postbuild": "scripts/reactfix.sh",
-      "preview": "vite preview",
-      "deploy": "npm run build && npx wrangler deploy"
-   },
    "dependencies": {
       "clsx": "^2.1.1",
       "debounce": "^2.2.0",
