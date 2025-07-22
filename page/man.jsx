@@ -3,6 +3,8 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
+import { useEffect, useRef } from 'react'
+
 import man from './barroit.1?raw'
 
 const lines = man.split('\n')
@@ -67,9 +69,27 @@ return (
 
 export default function Man()
 {
+	const box = useRef()
+
+	useEffect(() =>
+	{
+		const observer = new IntersectionObserver(([ entry ]) =>
+		{
+			if (entry.isIntersecting)
+				box.current.removeAttribute('data-no-scroll')
+			else
+				box.current.setAttribute('data-no-scroll', '')
+		}, { threshold: 0.9 })
+
+		observer.observe(box.current)
+		return () => observer.disconnect()
+	}, [])
+
 return (
-<div className='section @container h-[100svh]
-		flex justify-center items-center'>
+<div ref={ box }
+     className='section @container h-[100svh]
+		flex justify-center items-center
+		data-no-scroll:pointer-events-none'>
   <article className='relative *:border-[0.4vmin] *:border-pink-700'>
     <header className='relative px-2 inline-block lightbase dark:darkbase'>
       <h1 className='!text-[4vmin]'>README</h1>
