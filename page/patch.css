@@ -9,6 +9,26 @@
 	--spacing: 1vmin;
 }
 
+::-webkit-scrollbar {
+	width: 2vmin;
+}
+
+::-webkit-scrollbar-thumb {
+	border: 0.7vmin solid transparent;
+	border-radius: 39vmin;
+
+	background-clip: padding-box;
+	background-color: #7d7d7d;
+
+	@variant dark {
+		background-color: #a9a9a9;
+	}
+}
+
+::-webkit-scrollbar-thumb:hover {
+	border-width: 0.6vmin;
+}
+
 a {
 	outline-width: 0.3vmin ! important;
 	border-radius: 0.2vmin ! important;
@@ -101,22 +121,6 @@ to {
 	}
 }
 
-::-webkit-scrollbar {
-	width: 2vmin;
-}
-
-::-webkit-scrollbar-thumb {
-	border: 0.7vmin solid transparent;
-	border-radius: 39vmin;
-
-	background-clip: padding-box;
-	background-color: #7d7d7d;
-
-	@variant dark {
-		background-color: #a9a9a9;
-	}
-}
-
-::-webkit-scrollbar-thumb:hover {
-	border-width: 0.6vmin;
+.dialog-box {
+	@apply p-3 border-[0.4vmin] rounded-[2vmin] border-blue-500;
 }
