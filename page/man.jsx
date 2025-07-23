@@ -71,6 +71,15 @@ export default function Man()
 {
 	const box = useRef()
 
+	const sync_view = (event) =>
+	{
+		const rect = event.currentTarget.getBoundingClientRect()
+		const y = window.scrollY + rect.top -
+			  window.innerHeight / 2 + rect.height / 2
+
+		window.scrollTo({ top: y, behavior: 'smooth' })
+	}
+
 	useEffect(() =>
 	{
 		const observer = new IntersectionObserver(([ entry ]) =>
@@ -79,48 +88,52 @@ export default function Man()
 				box.current.removeAttribute('data-no-scroll')
 			else
 				box.current.setAttribute('data-no-scroll', '')
-		}, { threshold: 0.9 })
+		}, { threshold: 1 })
 
 		observer.observe(box.current)
 		return () => observer.disconnect()
 	}, [])
 
 return (
-<div ref={ box }
-     className='section @container h-[100svh]
-		flex justify-center items-center
-		data-no-scroll:pointer-events-none'>
-  <article className='relative *:border-[0.4vmin] *:border-pink-700'>
-    <header className='relative px-2 inline-block lightbase dark:darkbase'>
+<div className='section @container h-[100svh]
+		flex justify-center items-center'>
+  <article className='relative'>
+    <header className='px-2 inline-block border-[0.4vmin]
+		       border-pink-700 lightbase dark:darkbase'>
       <h1 className='!text-[4vmin]'>README</h1>
     </header>
-    <div className='term-bg -mt-2 px-2
-		    xl:w-[90cqw] h-[85cqh] xl:h-[75cqh] overflow-auto'>
-      <div className='mt-4'></div>
-      <Mander>
-	<BarroitMan/>
-	<p>Barroit Manual</p>
-	<BarroitMan/>
-      </Mander>
-      <div className='mt-4'></div>
-    {sections.map(([ name, [ str, substr ] ]) => (
-      <article key={ name }>
-	<h2 className='!text-[3.4vmin]'>{ name }</h2>
-	<pre className='pl-[8ch] text-wrap text-[3vmin]'>
-	  { str }
-	{!substr ? undefined : (
-	  <pre className='pl-[4ch] text-wrap text-[3vmin]'>
-	    { substr }
+    <div onClick={ sync_view }>
+      <div ref={ box }
+	   className='term-bg -mt-2 px-2
+		      xl:w-[90cqw] h-[85cqh] xl:h-[75cqh]
+		      border-[0.4vmin] border-pink-700
+		      overflow-auto data-no-scroll:pointer-events-none'>
+	<div className='mt-4'></div>
+	<Mander>
+	  <BarroitMan/>
+	  <p>Barroit Manual</p>
+	  <BarroitMan/>
+	</Mander>
+	<div className='mt-4'></div>
+      {sections.map(([ name, [ str, substr ] ]) => (
+	<article key={ name }>
+	  <h2 className='!text-[3.4vmin]'>{ name }</h2>
+	  <pre className='pl-[8ch] text-wrap text-[3vmin]'>
+	    { str }
+	  {!substr ? undefined : (
+	    <pre className='pl-[4ch] text-wrap text-[3vmin]'>
+	      { substr }
+	    </pre>
+	  )}
 	  </pre>
-	)}
-	</pre>
-      </article>
-    ))}
-      <Mander>
-	<p>Barroit 0.39.01-negi</p>
-	<p>2025-07-20</p>
-	<BarroitMan/>
-      </Mander>
+	</article>
+      ))}
+	<Mander>
+	  <p>Barroit 0.39.01-negi</p>
+	  <p>2025-07-20</p>
+	  <BarroitMan/>
+	</Mander>
+      </div>
     </div>
   </article>
 </div>
