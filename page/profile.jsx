@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react'
 import Header from './header.jsx'
 import Hero from './hero.jsx'
 import Man from './man.jsx'
+import Work from './work.jsx'
 
 function Totop()
 {
@@ -65,9 +66,11 @@ return (
   <Header/>
   <main className='dashed-strip'>
     <Hero/>
-    <div className='relative overflow-hidden'>
+    <div className='@container relative overflow-hidden'>
       <div className='star-strip'></div>
       <Man/>
+      <Work/>
+      {/* <Timeline/> */}
     </div>
   </main>
   <footer></footer>
