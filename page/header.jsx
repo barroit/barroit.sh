@@ -168,7 +168,7 @@ return (
 <button ref={ box } onClick={ strip_flip }
 	aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
 	className={ clsx('p-1 hidden md:flex items-center gap-x-3',
-			 'border-[0.3vmin] !rounded-[0.6vmin] duration-50',
+			 'default border-[0.3vmin] duration-50',
 			 'border-green-600', enabled && 'border-red-600') }>
   {strip_icons.map(([ name, alt ], i) => (
     <img key={ name } src={ name } alt={ alt }
@@ -188,7 +188,7 @@ return (
       <Shell className='px-2 portrait:pointer-coarse:px-4
 			before:left-[0.2vmin] after:right-[0.2vmin]
 			hover:before:-translate-x-1 hover:after:translate-x-1'>
-	<Totheir href={ url } className='!decoration-[0.4vmin]'>
+	<Totheir href={ url } className='decoration-[0.4vmin]'>
 	  <Flicker>{ name }</Flicker>
 	</Totheir>
       </Shell>

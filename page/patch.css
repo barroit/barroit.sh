@@ -9,6 +9,20 @@
 	--spacing: 1vmin;
 }
 
+a {
+	outline-width: 0.3vmin ! important;
+	border-radius: 0.2vmin ! important;
+}
+
+a:hover, .shell:hover a {
+	text-decoration-thickness: 0.2vmin ! important;
+}
+
+button {
+	outline-width: 0.3vmin ! important;
+	border-radius: 0.5vmin ! important;
+}
+
 .dashed-strip {
 	--dashed-strip-line: #0000000d;
 
