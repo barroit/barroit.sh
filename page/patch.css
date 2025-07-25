@@ -6,6 +6,8 @@
 @import './index.css';
 
 @theme {
+	--breakpoint-2xl: 90rem;
+
 	--spacing: 1vmin;
 }
 
@@ -29,18 +31,46 @@
 	border-width: 0.6vmin;
 }
 
-a {
-	outline-width: 0.3vmin ! important;
-	border-radius: 0.2vmin ! important;
+code, kbd, samp, pre, body {
+	font-family: 'JetBrains Mono', monospace;
 }
 
-a:hover, .shell:hover a {
-	text-decoration-thickness: 0.2vmin ! important;
+a {
+	outline-width: 0.3vmin;
+	border-radius: 0.2vmin;
 }
 
 button {
-	outline-width: 0.3vmin ! important;
-	border-radius: 0.5vmin ! important;
+	outline-width: 0.3vmin;
+	border-radius: 0.5vmin;
+}
+
+@utility border {
+	border-width: 0.1vmax;
+}
+
+@utility border-x {
+	border-inline-width: 0.1vmax;
+}
+
+@utility border-y {
+	border-block-width: 0.1vmax;
+}
+
+@utility border-t {
+	border-top-width: 0.1vmax;
+}
+
+@utility border-r {
+	border-right-width: 0.1vmax;
+}
+
+@utility border-b {
+	border-bottom-width: 0.1vmax;
+}
+
+@utility border-l {
+	border-left-width: 0.1vmax;
 }
 
 .dashed-strip {

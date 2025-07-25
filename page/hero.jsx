@@ -90,13 +90,14 @@ return (
 function Toolbar({ className })
 {
 return (
-<header className={ clsx(className, 'flex justify-between items-center',
+<header className={ clsx(className,
+			 '@container flex justify-between items-center',
 			 'select-none bg-[#ececec] dark:bg-[#353535]',
 			 'border-t border-x rounded-t-[1vmin]',
 			 'border-[#ececec] dark:border-[#616161]') }>
   <img src='/2024-le-flag-only.svg'
        className='w-2' alt='' aria-hidden='true'/>
-  <p className='font-bold text-[2vw] xl:text-[0.8vw]'
+  <p className='font-bold text-[1cqh]'
      aria-hidden='true'>
     SUPERFORTRESS:
     <span className='m-[0.4vmin]'>/boot/efi/EFI/barroit</span>
@@ -107,7 +108,7 @@ return (
     {wcntl.map(([ icon, color ], i) => (
       <div key={ i }
 	   className={ clsx(color,
-			    'p-[0.2vmin] w-max rounded-full duration-200') }>
+			    'p-[0.2cqw] w-max rounded-full duration-200') }>
 	<img src={ icon }
 	     className='w-1 duration-200 opacity-0 group-hover:opacity-100'
 	     alt='' aria-hidden='true'/>
@@ -141,11 +142,11 @@ function History({ className })
 
 return (
 <div className={ clsx(className,
-		      'term-bg @container relative',
-		      'border rounded-b-[0.5vmin]',
+		      '@container relative',
+		      'term-bg border rounded-b-[0.5vmin]',
 		      'border-[#ececec] dark:border-[#616161]',
 		      'border-t-[#e5e5e5] dark:border-t-[#101010]',
-		      'text-[4vw]/6 xl:text-[1.2vw]/3 overflow-y-auto') }>
+		      'text-[2.4cqh]/[3.2cqh] overflow-y-auto') }>
   <div className='cursor-text selection:text-white
 		  selection:bg-[#3967d1] dark:selection:bg-[#083aa4]'>
   {lines_sm.map((line, i) => (
@@ -190,7 +191,7 @@ return (
 export default function Hero()
 {
 return (
-<div className='section xl:h-[92svh] xl:flex justify-between'>
+<div className='section h-[92svh] xl:flex justify-between'>
   <div className='h-full flex flex-col items-center xl:items-start'>
     <Barroit className='mt-[3svh] xl:mt-0 xl:w-full px-[0.5vmin]'/>
     <Terminal className='mt-[6svh] xl:mt-[4svh] w-full h-full'/>

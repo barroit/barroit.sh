@@ -98,9 +98,9 @@ return (
 <div className='section @container h-[100svh]
 		flex justify-center items-center'>
   <article className='relative'>
-    <header className='px-2 inline-block border-[0.4vmin]
+    <header className='relative px-2 inline-block border-[0.4vmin]
 		       border-pink-700 lightbase dark:darkbase'>
-      <h1 className='!text-[4vmin]'>README</h1>
+      <h1 className='text-[4vmin]'>README</h1>
     </header>
     <div onClick={ sync_view }>
       <div ref={ box }
@@ -117,7 +117,7 @@ return (
 	<div className='mt-4'></div>
       {sections.map(([ name, [ str, substr ] ]) => (
 	<article key={ name }>
-	  <h2 className='!text-[3.4vmin]'>{ name }</h2>
+	  <h2 className='text-[3.4vmin]'>{ name }</h2>
 	  <pre className='pl-[8ch] text-wrap text-[3vmin]'>
 	    { str }
 	  {!substr ? undefined : (
