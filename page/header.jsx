@@ -182,7 +182,7 @@ return (
 function Nav()
 {
 return (
-<nav className=''>
+<nav>
   <ul className='flex'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>
