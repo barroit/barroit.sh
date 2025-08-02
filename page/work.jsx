@@ -22,6 +22,7 @@ import { ChevronDownIcon,
 import Flicker from './react/flicker.jsx'
 import Totheir from './react/totheir.jsx'
 import digitlen from './react/digitlen.js'
+import tmp from '../.tmp/data.json'
 
 import { age_since } from './age.js'
 
@@ -177,7 +178,7 @@ function RepoCard({ repo, focused })
 	const docs_str = docs_url.hostname + docs_path
 
 	const docs = clamp_str(docs_str, 35)
-	const docs_xl = clamp_str(docs, 22)
+	const docs_xl = clamp_str(docs, 25)
 
 	const topics_arr = Array.from(repo.topic)
 	const topics_str = topics_arr.join(' / ')
@@ -187,7 +188,10 @@ function RepoCard({ repo, focused })
 	const pushed = fmt_date(repo.pushed)
 
 return (
-<section className={ '@container p-2 space-y-3 bg-xneu-50 dark:bg-xneu-900' }>
+<section className={ clsx('@container p-2 space-y-3',
+			  'bg-xneu-50 dark:bg-xneu-900',
+			  !focused && 'select-none') }
+	 inert={ !focused }>
   <div className='space-y-1'>
     <div className='text-[2.5cqh] font-bold space-x-1'>
       <RepoIcon size='16' className='size-[2.5cqh]'/>
@@ -203,7 +207,7 @@ return (
       { repo.desc }
     </p>
   </div>
-  <div className='grid grid-cols-2 grid-rows-2 gap-y-1 gap-x-2 text-[1.8cqh]'>
+  <div className='grid grid-cols-2 grid-rows-2 gap-y-1 gap-x-2 text-[1.6cqh]'>
   {histerr ? (
     <FieldSlot className='row-span-2 my-auto'>
       <CloudOfflineIcon size='24'/>
@@ -370,9 +374,12 @@ return (
   <div className='flex flex-col justify-between w-80 xl:w-65'>
   {slots.map((idx, i) => (
     <div key={ idx }
+	 onFocus={ loading ? undefined : () => marker_grow(i, rail) }
+	 onBlur={ loading ? undefined : () => marker_shrink(i, rail) }
 	 onMouseEnter={ loading ? undefined : () => marker_grow(i, rail) }
 	 onMouseLeave={ loading ? undefined : () => marker_shrink(i, rail) }
-	 className='relative *:rounded-[1vmin] odd:scale-75 even:scale-110'>
+	 className='relative odd:scale-75 even:scale-110
+		    *:rounded-[1vmin] *:last:shadow-rb'>
     {i != 1 && (
       <div className='absolute inset-0 z-1 backdrop-blur-[0.2cqh]
 		      bg-xneu-100/50 dark:bg-xneu-900/50'>
@@ -383,7 +390,7 @@ return (
 		onClick={ () => focus(idx) }>
 	  <div className='*:size-[8cqh] *:text-pink-700 *:duration-200
 			  *:group-hover:scale-150
-			  group-focus-visible:scale-150'>
+			  *:group-focus-visible:scale-150'>
 	  {i ? (
 	    <ChevronDownIcon size='12'/>
 	  ) : (
@@ -412,16 +419,17 @@ export default function Work()
 
 	const fill_pinned = async () =>
 	{
-		const res = await fetch('/query/highlights')
+		// const res = await fetch('/query/highlights')
 
-		if (!res.ok) {
-			const message = await res.text()
+		// if (!res.ok) {
+		// 	const message = await res.text()
 
-			console.error(`/graphql: ${ message }`)
-			pin(undefined)
-		}
+		// 	console.error(`/graphql: ${ message }`)
+		// 	pin(undefined)
+		// }
 
-		const repos = await res.json()
+		// const repos = await res.json()
+		const repos = tmp
 
 		for (const { name, history } of repos) {
 			if (!history.err)
