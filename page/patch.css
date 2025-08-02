@@ -49,6 +49,10 @@ button {
 	border-width: 0.1vmax;
 }
 
+@utility border-* {
+	border-width: calc(--value(integer) * var(--spacing) / 10);
+}
+
 @utility border-x {
 	border-inline-width: 0.1vmax;
 }

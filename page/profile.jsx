@@ -63,18 +63,18 @@ export default function Profile()
 {
 return (
 <>
-  {/* <Header/> */}
+  <Header/>
   <main className='dashed-strip'>
-    {/* <Hero/> */}
+    <Hero/>
     <div className='@container relative overflow-hidden'>
       <div className='star-strip'></div>
-      {/* <Man/> */}
+      <Man/>
       <Work/>
       {/* <Timeline/> */}
     </div>
   </main>
-  {/* <footer></footer> */}
-  {/* <Totop/> */}
+  <footer></footer>
+  <Totop/>
 </>
 ) /* return */
 }

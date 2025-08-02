@@ -7,15 +7,41 @@
 
 import { clsx } from 'clsx'
 import { useEffect, useState, useRef } from 'react'
-import { CloudOfflineIcon,
+import { ChevronDownIcon,
+	 ChevronUpIcon,
+	 ClockIcon,
+	 CloudOfflineIcon,
 	 CodeIcon,
+	 DotFillIcon,
 	 GitCommitIcon,
+	 TagIcon,
+	 LinkIcon,
 	 RepoIcon,
 } from '@primer/octicons-react'
 
 import Flicker from './react/flicker.jsx'
 import Totheir from './react/totheir.jsx'
 import digitlen from './react/digitlen.js'
+
+import { age_since } from './age.js'
+
+const MARKER_SIZE = 24
+
+const marker_colors = [
+	'oklch(0.8765 0.1588 180)',
+	'oklch(0.7147 0.1893 45)',
+	'oklch(0.8705 0.1664 90)',
+	'oklch(0.8382 0.1207 340)',
+	'oklch(0.6 0.2415 21.9)',
+	'oklch(0.4764 0.2959 270)',
+]
+
+function hidden(item)
+{
+	const styles = getComputedStyle(item)
+
+	return styles.display == 'none'
+}
 
 function Error({ error })
 {
@@ -35,182 +61,353 @@ return (
 ) /* return */
 }
 
-function Circle({ fill })
+function Circle({ size, className, fill })
 {
+	const d = parseInt(size)
+	const r = d / 2
 return (
-<svg viewBox='0 0 128 128' width='16' height='16'
-     className='size-[1.4cqh] inline-block'>
-  <circle cx='50' cy='50' r='50' fill={ fill }/>
+<svg viewBox={ `0 0 ${ d } ${ d }` }
+     width={ d } height={ d }
+     className={ clsx('inline-block', className) }>
+  <circle cx={ r } cy={ r } r={ r } fill={ fill }/>
 </svg>
 ) /* return */
 }
 
-function FieldLoading({ pulse })
+function FieldLoading({ pulse, className })
 {
 return (
-<div className={ clsx(pulse && 'animate-pulse',
-		      'rounded-[0.7vmin] py-1 bg-xneu-200 dark:bg-xneu-800') }>
+<div className={ clsx(className, pulse && 'motion-safe:animate-pulse',
+		      'rounded-[0.7vmin] bg-xneu-200 dark:bg-xneu-800') }>
+  <span className='invisible'>.</span>
 </div>
 ) /* return */
 }
 
-function FieldBar({ pad, name, desc, children })
+function FieldSlot({ children, className })
 {
 return (
-<div>
+<div className={ clsx('*:first:mr-[3cqw] *:first:size-[1.8cqh]', className) }>
   { children }
-  <span className='ml-1 font-bold'>{ desc }</span>
+</div>
+) /* return */
+}
+
+function FieldDesc({ pad = 0, name, desc, children, className })
+{
+return (
+<FieldSlot className={ className }>
+  { children }
+  <span className='font-bold'>{ desc }</span>
   <span className='ml-(--padding)' style={ { '--padding': `${ pad + 1 }ch` } }>
     { name }
   </span>
+</FieldSlot>
+) /* return */
+}
+
+function FakeRepoCard({ pulse })
+{
+return (
+<div className='@container p-2 bg-xneu-50 dark:bg-xneu-900'>
+  <div className={ clsx('space-y-3', pulse && 'motion-safe:animate-pulse') }>
+    <div className='space-y-1'>
+      <div className='text-[2.5cqh]'>
+	<FieldLoading pulse={ pulse }/>
+      </div>
+      <div className='text-[1.5cqh]'>
+	<FieldLoading pulse={ pulse }/>
+      </div>
+    </div>
+    <div className='grid grid-cols-2 grid-rows-2
+		    gap-y-1 gap-x-2 text-[1.5cqh]'>
+      <FieldLoading pulse={ pulse }/>
+      <FieldLoading pulse={ pulse }/>
+      <FieldLoading pulse={ pulse }/>
+      <FieldLoading pulse={ pulse }/>
+      <FieldLoading pulse={ pulse } className='col-span-2'/>
+      <FieldLoading pulse={ pulse } className='mt-1'/>
+    </div>
+  </div>
 </div>
 ) /* return */
 }
 
-function FakeRepoCard()
+function clamp_str(str, max)
 {
-return (
-<section className='@container p-2 space-y-3 rounded-[1vmin]
-		    bg-xneu-200 dark:bg-xneu-900'>
-  <div className='flex *:first:px-1 *:last:flex-1'>
-    <FieldLoading/>
-    <span size='16' className='text-[2cqh] invisible'>.</span>
-    <FieldLoading/>
-  </div>
-  <div className='grid grid-cols-2 grid-rows-2 gap-1 *:even:col-start-2'>
-    <p className='invisible text-[1.5cqh]'>miku</p>
-    <FieldLoading/>
-    <FieldLoading/>
-    <FieldLoading/>
-  </div>
-</section>
-) /* return */
+	if (str.length > max)
+		str = `${ str.slice(0, max - 3) }...`
+
+	return str
 }
 
-function RepoCard({ repo })
+function fmt_date_col(time, str)
+{
+	return `${ time } ${ str }${ time > 1 ? 's' : '' } ago`
+}
+
+function fmt_date(str)
+{
+	const { years, months, days, hours, minutes } = age_since(str)
+	const fields = [
+		[ years,   'year'   ],
+		[ months,  'month'  ],
+		[ days,    'day'    ],
+		[ hours,   'hour'   ],
+		[ minutes, 'minute' ],
+	]
+
+	for (const [ time, name ] of fields) {
+		if (time)
+			return fmt_date_col(time, name)
+	}
+}
+
+function RepoCard({ repo, focused })
 {
 	const history = repo.history.data
-	const err = repo.history.err
+	const histerr = repo.history.err
 	let pad = 0
 
-	if (history && !err)
+	if (history && !histerr)
 		pad = digitlen(history.lines) - digitlen(history.commits)
 
+	const docs_url = URL.parse(repo.docs)
+	const docs_path = docs_url.pathname.replace(/\/+$/, '')
+	const docs_str = docs_url.hostname + docs_path
+
+	const docs = clamp_str(docs_str, 35)
+	const docs_xl = clamp_str(docs, 22)
+
+	const topics_arr = Array.from(repo.topic)
+	const topics_str = topics_arr.join(' / ')
+	const topics = clamp_str(topics_str, 45)
+	const topics_sm = clamp_str(topics_str, 35)
+
+	const pushed = fmt_date(repo.pushed)
+
 return (
-<section className='@container p-2 space-y-3
-		    rounded-[1vmin] bg-xneu-200 dark:bg-xneu-900'>
-  <div className='text-[2cqh] space-x-1'>
-    <RepoIcon size='16' className='size-[2cqh]'/>
-    <Totheir href={ `https://github.com/barroit/${repo.name}` }
-	     className='!decoration-[0.4vmin]'>
-      <Flicker className='after:text-[2vmin] after:-ml-[0.6vmin]
-			  after:font-bold after:content-["_↗"]'>
-	{ repo.name }
-      </Flicker>
-    </Totheir>
+<section className={ '@container p-2 space-y-3 bg-xneu-50 dark:bg-xneu-900' }>
+  <div className='space-y-1'>
+    <div className='text-[2.5cqh] font-bold space-x-1'>
+      <RepoIcon size='16' className='size-[2.5cqh]'/>
+      <Totheir href={ `https://github.com/barroit/${repo.name}` }
+	       className='!decoration-[0.4cqmax]'>
+	<Flicker className='after:text-[2cqh] after:-ml-[0.6cqmax]
+			    after:font-bold after:content-["_↗"]'>
+	  { repo.name }
+	</Flicker>
+      </Totheir>
+    </div>
+    <p className='pl-[0.5cqw] text-[1.5cqh] text-xneu-700 dark:text-xneu-400'>
+      { repo.desc }
+    </p>
   </div>
-  <div className='grid grid-cols-2 grid-rows-2 gap-y-1
-		  text-[1.5cqh] *:odd:col-start-2'>
-  {err ? (
-    <div className='invisible'>miku</div>
+  <div className='grid grid-cols-2 grid-rows-2 gap-y-1 gap-x-2 text-[1.8cqh]'>
+  {histerr ? (
+    <FieldSlot className='row-span-2 my-auto'>
+      <CloudOfflineIcon size='24'/>
+      <span>unavailable</span>
+    </FieldSlot>
   ) : !history ? (
-    <FieldLoading pulse/>
+    <FieldLoading pulse={ focused }/>
   ) : (
-    <FieldBar name='commits' desc={ history.commits } pad={ pad }>
-      <GitCommitIcon size='24' className='size-[2cqh]'/>
-    </FieldBar>
+    <FieldDesc name='commits' desc={ history.commits } pad={ pad }>
+      <GitCommitIcon size='24'/>
+    </FieldDesc>
   )}
-    <div className='space-x-[0.5vmin] text-[1.5cqh]'>
-      <Circle fill={ repo.lang.color }/>
-      <span>{ repo.lang.name }</span>
-    </div>
-  {err ? (
-    <div>
-      <CloudOfflineIcon size='24' className='size-[2cqh]'/>
-      <span className='ml-[1ch]'>unavailable</span>
-    </div>
-  ) : (!history ? (
-    <FieldLoading pulse/>
+    <div className='xl:hidden'></div>
+    <FieldDesc name='push' desc={ pushed } className='hidden xl:block'>
+      <ClockIcon size='24'/>
+    </FieldDesc>
+  {histerr ? (
+    undefined
+  ) : !history ? (
+    <FieldLoading pulse={ focused }/>
   ) : (
-    <FieldBar name='lines' desc={ history.lines } pad={ 1 }>
-      <CodeIcon size='24' className='size-[2cqh]'/>
-    </FieldBar>
-  ))}
+    <FieldDesc name='lines' desc={ history.lines }>
+      <CodeIcon size='24'/>
+    </FieldDesc>
+  )}
+    <FieldDesc name='push' desc={ pushed } className='xl:hidden'>
+      <ClockIcon size='24'/>
+    </FieldDesc>
+    <FieldSlot className='col-span-2 xl:col-span-1 *:last:!decoration-[0.4vmin]'>
+      <LinkIcon size='24'/>
+      <Totheir href={ repo.docs } className='xl:hidden'>
+	<Flicker>{ docs }</Flicker>
+      </Totheir>
+      <Totheir href={ repo.docs } className='hidden xl:inline-block'>
+	<Flicker>{ docs_xl }</Flicker>
+      </Totheir>
+    </FieldSlot>
+    <FieldSlot className='col-span-2'>
+      <TagIcon size='24'/>
+      <span className='hidden xl:inline-block'>{ topics }</span>
+      <span className='xl:hidden'>{ topics_sm }</span>
+    </FieldSlot>
+    <FieldSlot className='mt-1 *:first:!mr-1'>
+      <DotFillIcon fill={ repo.lang.color } size='16'
+		   className='scale-180 !align-text-top'/>
+      <span>{ repo.lang.name }</span>
+    </FieldSlot>
   </div>
 </section>
 ) /* return */
 }
 
-function Pinned({ repos, rail })
+function marker_zoom(idx, rail, out)
 {
-	const box = useRef()
-	const [ next, advance ] = useState(0)
+	if (hidden(rail.current))
+		return
 
-	const move_repo = (event) =>
-	{
-		// const items = Array.from(box.current.children)
+	const rect = rail.current.children[idx + 1]
+	const prev = rect.getAttribute('width')
 
-		// if (event.deltaY > 0)
-		// 	items.shift()
-		// else
-		// 	items.pop()
+	if (prev == MARKER_SIZE && out ||
+	    prev == MARKER_SIZE * 2 && !out)
+		return
 
-		if (event.deltaY > 0)
-			advance(prev => (prev + 1) % 6)
-		else
-			advance(prev => (prev + 5) % 6)
+	let next
+	let offset
+	let fixup
+
+	if (out) {
+		next = prev / 2
+		offset = next / 2
+		fixup = -5
+	} else {
+		next = prev * 2
+		offset = -(prev / 2)
+		fixup = 5
 	}
+
+	const match = rect.style.transform.match(/^translate3d\((.*)\)$/)
+	const str = match[1]
+	const strarr = str.split(', ')
+
+	const transform = strarr.map(v => parseFloat(v) + offset)
+	const x = transform[0]
+	const y = transform[1]
+
+	rect.setAttribute('width', next)
+	rect.setAttribute('height', next)
+	rect.style.transform = `translate3d(${ x + fixup }px, ${ y }px, 0)`
+}
+
+function marker_grow(idx, rail)
+{
+	marker_zoom(idx, rail, 0)
+}
+
+function marker_shrink(idx, rail)
+{
+	marker_zoom(idx, rail, 1)
+}
+
+function Showcase({ repos })
+{
+	const rail = useRef()
+	const [ focused, focus ] = useState(0)
+
+	const slots = [
+		(focused + 5) % 6,
+		focused,
+		(focused + 1) % 6,
+	]
+
+	const loading = !repos.length
+	const markers = [
+		marker_colors[slots[0]],
+		marker_colors[slots[1]],
+		marker_colors[slots[2]],
+	]
 
 	useEffect(() =>
 	{
-		if (!repos.length)
+		if (hidden(rail.current))
 			return
 
-		const parent = box.current
+		const items = Array.from(rail.current.children)
+		const path = items[0]
 
-		parent.addEventListener('wheel', move_repo)
-		return () => parent.removeEventListener('wheel', move_repo)
-	}, [ repos ])
+		const len = path.getTotalLength()
+		const span = len / 4
 
-	const slot = [
-		(next + 5) % 6,
-		next,
-		(next + 1) % 6,
-		(next + 2) % 6,
-		(next + 3) % 6,
-	]
+		items.shift()
+		items.forEach((rect, i) =>
+		{
+			const dist = span * (i + 1)
+			const point = path.getPointAtLength(dist)
+			const fixup = MARKER_SIZE / 2
 
+			const x = `${ point.x - fixup }px`
+			const y = `${ point.y - fixup }px`
+
+			rect.style.transform = `translate3d(${ x }, ${ y }, 0)`
+		})
+	}, [])
 
 return (
-<div ref={ box }
-     className={ clsx('relative flex flex-col justify-around w-40',
-		      '*:first:hidden *:last:hidden',
-		      !repos.length && 'motion-safe:animate-pulse') }>
-{slot.map((idx, i) => repos.length ? (
-  <RepoCard key={ idx } repo={ repos[idx] }/>
-) : (
-  <FakeRepoCard key={ idx }/>
-))}
+<div className='py-5 flex gap-x-10'>
+  <svg ref={ rail } viewBox='0 0 202 1002'
+       width='20' height='100' className='relative w-auto h-full
+					  hidden xl:block text-xneu-500'>
+    <path d='M 180 0
+	     h 20
+	     v 20
+	     M 200 0
+	     A 400 600, 0, 0, 0, 200 1000
+	     M 180 1000
+	     h 20
+	     v -20'
+	  fill='none' stroke='currentColor' strokeWidth='4'/>
+  {markers.map((color, i) => (
+    <rect key={ i } width={ MARKER_SIZE } height={ MARKER_SIZE }
+	  className='duration-200' fill={ color }/>
+  ))}
+  </svg>
+  <div className='flex flex-col justify-between w-80 xl:w-65'>
+  {slots.map((idx, i) => (
+    <div key={ idx }
+	 onMouseEnter={ loading ? undefined : () => marker_grow(i, rail) }
+	 onMouseLeave={ loading ? undefined : () => marker_shrink(i, rail) }
+	 className='relative *:rounded-[1vmin] odd:scale-75 even:scale-110'>
+    {i != 1 && (
+      <div className='absolute inset-0 z-1 backdrop-blur-[0.2cqh]
+		      bg-xneu-100/50 dark:bg-xneu-900/50'>
+      {!loading && (
+	<button className='group w-full h-full flex justify-center items-center
+			   border-4 border-transparent hover:border-blue-400
+			   duration-200'
+		onClick={ () => focus(idx) }>
+	  <div className='*:size-[8cqh] *:text-pink-700 *:duration-200
+			  *:group-hover:scale-150
+			  group-focus-visible:scale-150'>
+	  {i ? (
+	    <ChevronDownIcon size='12'/>
+	  ) : (
+	    <ChevronUpIcon size='12'/>
+	  )}
+	  </div>
+	</button>
+      )}
+      </div>
+    )}
+    {loading ? (
+      <FakeRepoCard pulse={ i == 1 }/>
+    ) : (
+      <RepoCard repo={ repos[idx] } focused={ i == 1 }/>
+    )}
+    </div>
+  ))}
+  </div>
 </div>
-) /* return */
-}
-
-function Rail({ rail })
-{
-return (
-<svg viewBox='0 0 200 1000'
-     width='20' height='100' className='w-auto h-full hidden xl:block'>
-  <path d='M 200,0
-	   A 400,600 0 0,0 200,1000'
-	fill='none' stroke='currentColor' strokeWidth='4' ref={ rail }/>
-  <rect width='16' height='16' fill='#ff0000ff'/>
-</svg>
 ) /* return */
 }
 
 export default function Work()
 {
-	const rail = useRef()
 	const [ pinned, pin ] = useState([])
 
 	const fill_pinned = async () =>
@@ -244,14 +441,11 @@ export default function Work()
 	}, [])
 
 return (
-<div className='section h-[100svh] flex justify-center items-center'>
+<div className='section h-[100svh] flex justify-center'>
 {!pinned ? (
   <Error error={ pinned }/>
 ) : (
-  <div className='h-[75svh] flex gap-x-20'>
-    <Rail rail={ rail }/>
-    <Pinned repos={ pinned } rail={ rail }/>
-  </div>
+  <Showcase repos={ pinned }/>
 )}
 </div>
 ) /* return */

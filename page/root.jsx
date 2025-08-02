@@ -13,5 +13,5 @@ import './patch.css'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Profile/>
-  </StrictMode>,
+  </StrictMode>
 )

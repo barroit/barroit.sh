@@ -41,6 +41,11 @@ function accum_hist(data)
 	}), { commits: 0, lines: 0 })
 }
 
+function flat_topic(topics)
+{
+	return topics.map(({ topic }) => topic.name)
+}
+
 async function fetch_pinned(token)
 {
 	const data = {
@@ -51,9 +56,19 @@ async function fetch_pinned(token)
 				    nodes {
 				       ... on Repository {
 					  name
+					  description
+					  homepageUrl
 					  primaryLanguage {
 					     color
 					     name
+					  }
+					  pushedAt
+					  repositoryTopics(first: 3) {
+					     nodes {
+						topic {
+						   name
+						}
+					     }
 					  }
 				       }
 				    }
@@ -90,6 +105,10 @@ async function fetch_pinned(token)
 	const ret = conts.map(({ err, data, repo }) => ({
 		name: repo.name,
 		lang: repo.primaryLanguage,
+		desc: repo.description,
+		topic: flat_topic(repo.repositoryTopics.nodes),
+		docs: repo.homepageUrl,
+		pushed: repo.pushedAt,
 		history: {
 			err,
 			data: !data ? undefined : accum_hist(data),
