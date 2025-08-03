@@ -22,7 +22,6 @@ import { ChevronDownIcon,
 import Flicker from './react/flicker.jsx'
 import Totheir from './react/totheir.jsx'
 import digitlen from './react/digitlen.js'
-import tmp from '../.tmp/data.json'
 
 import { age_since } from './age.js'
 
@@ -419,17 +418,16 @@ export default function Work()
 
 	const fill_pinned = async () =>
 	{
-		// const res = await fetch('/query/highlights')
+		const res = await fetch('/query/highlights')
 
-		// if (!res.ok) {
-		// 	const message = await res.text()
+		if (!res.ok) {
+			const message = await res.text()
 
-		// 	console.error(`/graphql: ${ message }`)
-		// 	pin(undefined)
-		// }
+			console.error(`/graphql: ${ message }`)
+			pin(undefined)
+		}
 
-		// const repos = await res.json()
-		const repos = tmp
+		const repos = await res.json()
 
 		for (const { name, history } of repos) {
 			if (!history.err)

@@ -77,8 +77,6 @@ export default function Man()
 		const y = window.scrollY + rect.top -
 			  window.innerHeight / 2 + rect.height / 2
 
-			  console.log(y)
-
 		window.scrollTo({ top: y, behavior: 'smooth' })
 	}
 
