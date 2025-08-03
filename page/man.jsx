@@ -88,7 +88,10 @@ export default function Man()
 				box.current.removeAttribute('data-no-scroll')
 			else
 				box.current.setAttribute('data-no-scroll', '')
-		}, { threshold: 1 })
+		}, {
+			rootMargin: '-4%',
+			threshold: 1,
+		})
 
 		observer.observe(box.current)
 		return () => observer.disconnect()
