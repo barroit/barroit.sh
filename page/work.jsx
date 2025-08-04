@@ -165,7 +165,7 @@ function fmt_date(str)
 
 function RepoCard({ repo, focused })
 {
-	const history = repo.history.data
+	const history = repo.history
 	const histerr = repo.history.err
 	let pad = 0
 
@@ -212,7 +212,7 @@ return (
       <CloudOfflineIcon size='24'/>
       <span>unavailable</span>
     </FieldSlot>
-  ) : !history ? (
+  ) : !history.lines ? (
     <FieldLoading pulse={ focused }/>
   ) : (
     <FieldDesc name='commits' desc={ history.commits } pad={ pad }>
@@ -225,7 +225,7 @@ return (
     </FieldDesc>
   {histerr ? (
     undefined
-  ) : !history ? (
+  ) : !history.lines ? (
     <FieldLoading pulse={ focused }/>
   ) : (
     <FieldDesc name='lines' desc={ history.lines }>
@@ -435,7 +435,7 @@ export default function Work()
 
 			const prefix = `/${ name }/stats/contributors`
 
-			console.error(`${ prefix }: ${ history.data }`)
+			console.error(`${ prefix }: ${ history.err }`)
 		}
 
 		pin(repos)
