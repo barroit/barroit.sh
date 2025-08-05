@@ -46,7 +46,7 @@ function flat_topic(topics)
 	return topics.map(({ topic }) => topic.name)
 }
 
-export async function query(env, force)
+export async function query(env, cache)
 {
 	const token = env.GITHUB_TOKEN
 	const data = {
@@ -102,10 +102,10 @@ export async function query(env, force)
 	}
 
 	const conts = await Promise.all(wait_queue)
-	const fast = conts.filter(({ err, conts }) => err || !conts)
+	const retry = conts.filter(({ err, conts }) => err || !conts)
 
-	if (fast.length)
-		force.next_timeout = 0
+	if (retry.length)
+		cache.next_timeout = 0
 
 	return conts.map(({ err, conts, repo }) => ({
 		name: repo.name,

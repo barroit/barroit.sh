@@ -352,7 +352,7 @@ function Showcase({ repos })
 	}, [])
 
 return (
-<div className='py-5 flex gap-x-10'>
+<div className='xl:mr-10 py-5 flex gap-x-10'>
   <svg ref={ rail } viewBox='0 0 202 1002'
        width='20' height='100' className='relative w-auto h-full
 					  hidden xl:block text-xneu-500'>
@@ -370,13 +370,13 @@ return (
 	  className='duration-200' fill={ color }/>
   ))}
   </svg>
-  <div className='flex flex-col justify-between w-80 xl:w-65'>
+  <div className='flex flex-col justify-between w-80'>
   {slots.map((idx, i) => (
     <div key={ idx }
 	 onFocus={ loading ? undefined : () => marker_grow(i, rail) }
 	 onBlur={ loading ? undefined : () => marker_shrink(i, rail) }
-	 onMouseEnter={ loading ? undefined : () => marker_grow(i, rail) }
-	 onMouseLeave={ loading ? undefined : () => marker_shrink(i, rail) }
+	 onPointerEnter={ loading ? undefined : () => marker_grow(i, rail) }
+	 onPointerLeave={ loading ? undefined : () => marker_shrink(i, rail) }
 	 className='relative odd:scale-75 even:scale-110
 		    *:rounded-[1vmin] *:last:shadow-rb'>
     {i != 1 && (
@@ -387,9 +387,10 @@ return (
 			   border-4 border-transparent hover:border-blue-400
 			   duration-200'
 		onClick={ () => focus(idx) }>
-	  <div className='*:size-[8cqh] *:text-pink-700 *:duration-200
+	  <div className='*:size-[8cqh] *:text-pink-400 *:duration-200
 			  *:group-hover:scale-150
-			  *:group-focus-visible:scale-150'>
+			  *:group-focus-visible:scale-150
+			  pointer-coarse:*:group-active:scale-150'>
 	  {i ? (
 	    <ChevronDownIcon size='12'/>
 	  ) : (
@@ -447,7 +448,7 @@ export default function Work()
 	}, [])
 
 return (
-<div className='section h-[100svh] flex justify-center'>
+<div className='section h-[100svh] mt-16 flex justify-center'>
 {!pinned ? (
   <Error error={ pinned }/>
 ) : (

@@ -3,8 +3,6 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
-import { useEffect, useRef } from 'react'
-
 import Shell from './react/shell.jsx'
 import { ToTheirs, ToOurs } from './react/link.jsx'
 import Flicker from './react/flicker.jsx'
@@ -13,52 +11,26 @@ import Banner from './banner.jsx'
 import Hero from './hero.jsx'
 import Man from './man.jsx'
 import Work from './work.jsx'
+import Timeline from './timeline.jsx'
+
+import ArrowUp from './assets/arrow-circle-up.svg?react'
 
 function Totop()
 {
-	const img = useRef()
-
-	useEffect(() =>
-	{
-		/*
-		 * WebKit hates this animation.
-		 * Force this bitch to run.
-		 */
-		let retry = 10
-		const id = setInterval(() =>
-		{
-			const classes = img.current.classList
-
-			classes.remove('motion-safe:animate-bounce')
-			img.current.offsetWidth
-			classes.add('motion-safe:animate-bounce')
-
-			retry--;
-
-			if (!retry)
-				clearInterval(id)
-		}, 50)
-	}, [])
-
 	const reset_view = () =>
 	{
 		window.scrollTo({ top: 0, behavior: 'smooth'})
 	}
 
 return (
-<div className='relative min-h-[calc(100vh-100svh)] p-5
-		overflow-hidden'>
-  <div className='star-strip'></div>
-  <div className='h-full flex justify-center'>
-    <button onClick={ reset_view }
-	    className='py-2 px-2 motion-safe:pt-5 motion-safe:px-4'
-	    aria-hidden='true'>
-      <img ref={ img } src='/arrow-circle-up.svg'
-	   className='w-10 light:invert
-		      motion-safe:animate-bounce will-change-transform'
-	   alt='' aria-hidden='true'/>
-    </button>
-  </div>
+<div className='h-full mt-16 flex justify-center'>
+  <button onClick={ reset_view } className='p-5'>
+    <ArrowUp className='size-5 pointer-coarse:size-8 text-cyan-400
+			hover:scale-150 focus-visible:scale-150
+			pointer-coarse:active:scale-150
+			duration-200 motion-safe:animate-bounce'/>
+    <p className='sr-only'>back to top</p>
+  </button>
 </div>
 ) /* return */
 }
@@ -101,9 +73,9 @@ return (
       <Man/>
       <Work/>
       {/* <Timeline/> */}
+      <Totop/>
     </div>
   </main>
-  <Totop/>
 </div>
 ) /* return */
 }
