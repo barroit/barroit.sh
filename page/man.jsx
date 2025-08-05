@@ -100,18 +100,19 @@ export default function Man()
 return (
 <div className='section h-[100svh] flex justify-center items-center'>
   <article className='relative'>
-    <header className='relative translate-y-2 px-2 w-min border-[0.4vmin]
-		       border-pink-700 lightbase dark:darkbase'>
+    <header className='relative z-1 translate-y-2 w-min px-2 border-[0.4vmin]
+		       border-pink-700 bg-lneu-50 dark:bg-lneu-950'>
       <h1 className='text-[4vmin]'>README</h1>
     </header>
     <div onClick={ sync_view }
 	 className='term-bg border-[0.4vmin] border-pink-700'>
       <div ref={ box }
-	   className='@container px-2 w-[90vw] h-[80svh]
+	   className='@container relative w-[50vw] h-[80svh] px-2
 		      overflow-auto duration-400
 		      data-no-scroll:pointer-events-none
 		      data-no-scroll:text-xneu-900/50
-		      dark:data-no-scroll:text-xneu-200/50'>
+		      dark:data-no-scroll:text-xneu-200/50
+		      lightbase dark:darkbase'>
 	<div className='mt-4'></div>
 	<Mander>
 	  <BarroitMan/>

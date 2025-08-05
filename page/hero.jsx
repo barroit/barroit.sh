@@ -92,7 +92,7 @@ function Toolbar()
 return (
 <header className='@container p-[0.5cqmin] flex justify-between items-center
 		   select-none bg-xneu-200 dark:bg-[#353535]
-		   border-t border-x rounded-t-[1cqmin]
+		   border-t-1 border-x-1 rounded-t-[1cqmin]
 		   border-xneu-100 dark:border-xneu-700'>
   <img src='/2024-le-flag-only.svg'
        className='w-[2cqh]' alt='' aria-hidden='true'/>
@@ -139,9 +139,8 @@ function History()
 	const lines_sm = history_sm.flat()
 
 return (
-<div className='relative h-full p-[0.5cqmin] overflow-y-auto
-		border rounded-b-[1cqmin] text-[2cqh]/[3cqh]
-		bg-lneu-50 dark:bg-lneu-950
+<div className='relative h-full p-[0.5cqmin] overflow-y-auto text-[2cqh]/[3cqh]
+		border-1 rounded-b-[1cqmin] bg-lneu-50 dark:bg-lneu-950
 		border-xneu-100 dark:border-xneu-700
 		border-t-zinc-300 dark:border-t-zinc-900'>
   <div className='cursor-text selection:text-white

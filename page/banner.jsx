@@ -209,7 +209,7 @@ return (
 <header className='@container h-[8svh] mx-[5vw]
 		   pt-[1cqh] pl-[1cqh] pr-[0.5cqh]
 		   flex justify-between items-center
-		   text-[3cqh] border-b-[0.5cqh]
+		   text-[3cqh] border-b-[0.4svh]
 		   lightbase dark:darkbase
 		   border-xneu-200 dark:border-xneu-700'>
   <Lustrous/>
