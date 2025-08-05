@@ -193,7 +193,12 @@ return (
     <Barroit className='mt-[3svh] xl:mt-0 px-[0.5vmin]'/>
     <Terminal className='w-full h-full mt-[6svh] xl:mt-[4svh]'/>
   </div>
-  <div className='hidden lightbase dark:darkbase h-full xl:flex'>
+  <div className='relative h-full hidden xl:flex
+		  bg-white/50 dark:bg-xneu-950/50
+		  after:content-[""] after:absolute
+		  after:left-0 after:bottom-0 after:w-full after:h-5
+		  after:bg-linear-to-t after:to-transparent
+		  after:from-white/50 dark:after:from-xneu-950/95'>
     <img src='/miku-headpat.png'
 	 className='h-full object-cover select-none light:invert'
 	 alt='miku needs your headpat' draggable='false'/>

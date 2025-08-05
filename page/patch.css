@@ -83,23 +83,41 @@ button {
 }
 
 .dashed-strip {
-	--dashed-strip-line: #0000000d;
+	--ds-line-color: var(--color-xneu-300);
 
 	@variant dark {
-		--dashed-strip-line: #ffffff0d;
+		--ds-line-color: var(--color-xneu-800);
 	}
 
-	--dashed-strip: to bottom,
-			var(--dashed-strip-line) 0,
-			var(--dashed-strip-line) 1.6vmin,
-			transparent 1.6vmin, transparent 3.2vmin;
+	--ds-line-mix: in oklab, var(--ds-line-color);
+	--ds-line-c1: color-mix(var(--ds-line-mix) 100%, transparent);
+	--ds-line-c2: color-mix(var(--ds-line-mix) 82%,  transparent);
+	--ds-line-c3: color-mix(var(--ds-line-mix) 64%,  transparent);
+	--ds-line-c4: color-mix(var(--ds-line-mix) 48%,  transparent);
+	--ds-line-c5: color-mix(var(--ds-line-mix) 36%,  transparent);
+	--ds-line-c6: color-mix(var(--ds-line-mix) 28%,  transparent);
 
-	background-image: repeating-linear-gradient(var(--dashed-strip)),
-			  repeating-linear-gradient(var(--dashed-strip)),
-			  repeating-linear-gradient(var(--dashed-strip)),
-			  repeating-linear-gradient(var(--dashed-strip)),
-			  repeating-linear-gradient(var(--dashed-strip)),
-			  repeating-linear-gradient(var(--dashed-strip));
+	--ds-line-t0: transparent 1.6vmin, transparent 3.2vmin;
+	--ds-line-t1: var(--ds-line-c1) 0, var(--ds-line-c1) 1.6vmin;
+	--ds-line-t2: var(--ds-line-c2) 0, var(--ds-line-c2) 1.6vmin;
+	--ds-line-t3: var(--ds-line-c3) 0, var(--ds-line-c3) 1.6vmin;
+	--ds-line-t4: var(--ds-line-c4) 0, var(--ds-line-c4) 1.6vmin;
+	--ds-line-t5: var(--ds-line-c5) 0, var(--ds-line-c5) 1.6vmin;
+	--ds-line-t6: var(--ds-line-c6) 0, var(--ds-line-c6) 1.6vmin;
+
+	--ds-line-1: to bottom, var(--ds-line-t1), var(--ds-line-t0);
+	--ds-line-2: to bottom, var(--ds-line-t2), var(--ds-line-t0);
+	--ds-line-3: to bottom, var(--ds-line-t3), var(--ds-line-t0);
+	--ds-line-4: to bottom, var(--ds-line-t4), var(--ds-line-t0);
+	--ds-line-5: to bottom, var(--ds-line-t5), var(--ds-line-t0);
+	--ds-line-6: to bottom, var(--ds-line-t6), var(--ds-line-t0);
+
+	background-image: repeating-linear-gradient(var(--ds-line-1)),
+			  repeating-linear-gradient(var(--ds-line-2)),
+			  repeating-linear-gradient(var(--ds-line-3)),
+			  repeating-linear-gradient(var(--ds-line-4)),
+			  repeating-linear-gradient(var(--ds-line-5)),
+			  repeating-linear-gradient(var(--ds-line-6));
 
 	background-size: 0.4vmin 100%;
 	background-repeat: no-repeat;
@@ -146,20 +164,4 @@ to {
 		animation: scroll-stars 5s linear infinite;
 		will-change: transform;
 	}
-}
-
-.section {
-	margin: 0 5vw 0 5vw;
-}
-
-.term-bg {
-	background-color: #fefefe;
-
-	@variant dark {
-		background-color: #1e1e1e;
-	}
-}
-
-.dialog-box {
-	@apply p-3 border-[0.4vmin] rounded-[2vmin] border-blue-500;
 }
