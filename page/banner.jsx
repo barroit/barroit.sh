@@ -43,9 +43,9 @@ return (
   <p className='hidden xl:block 2xl:hidden'>
     memory.get("last_seen_sky");
   </p>
-  <div className='flex md:hidden gap-x-2'>
+  <div className='flex md:hidden gap-x-3'>
   {ctrl_colors.map((color, i) => (
-    <div key={ i } className={ clsx('p-[1.5vmin] rounded-full', color) }></div>
+    <div key={ i } className={ clsx('p-[2cqw] rounded-full', color) }></div>
   ))}
   </div>
 </div>
@@ -167,10 +167,10 @@ function Strip()
 return (
 <button ref={ box } onClick={ strip_flip }
 	aria-label={ (enabled ? 'disable' : 'enable') + ' strip animation' }
-	className={ clsx('p-1 hidden md:flex items-center gap-x-3',
+	className={ clsx('h-4 px-1 hidden md:flex items-center gap-x-3',
 			 'hover:bg-zinc-200 dark:hover:bg-zinc-900',
-			 'border-[0.3vmin] duration-50',
-			 'border-green-600', enabled && 'border-red-600') }>
+			 'border-[0.3cqh] border-green-600 duration-50',
+			 enabled && 'border-red-600') }>
   {strip_icons.map(([ name, alt ], i) => (
     <img key={ name } src={ name } alt={ alt }
 	 className='w-2 light:invert'/>
@@ -186,10 +186,13 @@ return (
   <ul className='flex'>
   {nav_urls.map(([ name, url ]) => (
     <li key={ name }>
-      <Shell className='px-2 portrait:pointer-coarse:px-4
-			before:left-[0.2vmin] after:right-[0.2vmin]
-			hover:before:-translate-x-1 hover:after:translate-x-1'>
-	<Totheir href={ url } className='!decoration-[0.3cqh]'>
+      <Shell className='px-3 portrait:pointer-coarse:px-4
+			before:left-0 after:right-0
+			hover:before:-translate-x-1
+			hover:after:translate-x-1
+			active:before:-translate-x-2
+			active:after:translate-x-2'>
+	<Totheir href={ url }>
 	  <Flicker>{ name }</Flicker>
 	</Totheir>
       </Shell>
@@ -200,13 +203,15 @@ return (
 ) /* return */
 }
 
-export default function Header()
+export default function Banner()
 {
 return (
-<header className='@container section h-[7.5svh] pt-[0.5svh] px-1
+<header className='@container h-[8svh] mx-[5vw]
+		   pt-[1cqh] pl-[1cqh] pr-[0.5cqh]
 		   flex justify-between items-center
 		   text-[3cqh] border-b-[0.5cqh]
-		   border-[#d9d9d9] dark:border-[#4d4d4d]'>
+		   lightbase dark:darkbase
+		   border-xneu-200 dark:border-xneu-700'>
   <Lustrous/>
   <Strip/>
   <Nav/>

@@ -5,7 +5,7 @@
 
 import { useEffect, useRef } from 'react'
 
-import Header from './header.jsx'
+import Banner from './banner.jsx'
 import Hero from './hero.jsx'
 import Man from './man.jsx'
 import Work from './work.jsx'
@@ -43,7 +43,7 @@ function Totop()
 
 return (
 <div className='relative min-h-[calc(100vh-100svh)] p-5
-		xl:hidden overflow-hidden'>
+		overflow-hidden'>
   <div className='star-strip'></div>
   <div className='h-full flex justify-center'>
     <button onClick={ reset_view }
@@ -62,19 +62,18 @@ return (
 export default function Profile()
 {
 return (
-<>
-  <Header/>
-  <main className='dashed-strip'>
+<div className='dashed-strip'>
+  <Banner/>
+  <main>
     <Hero/>
-    <div className='@container relative overflow-hidden'>
+    <div className='relative overflow-hidden'>
       <div className='star-strip'></div>
       <Man/>
       <Work/>
       {/* <Timeline/> */}
     </div>
   </main>
-  <footer></footer>
   <Totop/>
-</>
+</div>
 ) /* return */
 }
