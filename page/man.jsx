@@ -61,7 +61,7 @@ return (
 function Mander({ children })
 {
 return (
-<article className='flex justify-between *:text-[2.8cqmin]'>
+<article className='flex justify-between'>
   { children }
 </article>
 ) /* return */
@@ -88,31 +88,26 @@ export default function Man()
 				box.current.removeAttribute('data-no-scroll')
 			else
 				box.current.setAttribute('data-no-scroll', '')
-		}, {
-			rootMargin: '-4%',
-			threshold: 1,
-		})
+		}, { threshold: 1 })
 
 		observer.observe(box.current)
 		return () => observer.disconnect()
 	}, [])
 
 return (
-<div className='section h-[100svh] flex justify-center items-center'>
+<div className='section h-[100svh] mt-16 flex justify-center items-center'>
   <article className='relative'>
     <header className='relative z-1 translate-y-2 w-min px-2 border-[0.4vmin]
 		       border-pink-700 bg-lneu-50 dark:bg-lneu-950'>
-      <h1 className='text-[4vmin]'>README</h1>
+      <h1 className='p-1 font-black text-[4vmin] xl:text-[3vmin]'>README</h1>
     </header>
-    <div onClick={ sync_view }
-	 className='term-bg border-[0.4vmin] border-pink-700'>
+    <div onClick={ sync_view } className='border-[0.4vmin] border-pink-700'>
       <div ref={ box }
-	   className='@container relative w-[50vw] h-[80svh] px-2
-		      overflow-auto duration-400
+	   className='@container relative w-90 h-[85svh] px-2 text-[2cqh]
+		      lightbase dark:darkbase overflow-auto duration-400
 		      data-no-scroll:pointer-events-none
 		      data-no-scroll:text-xneu-900/50
-		      dark:data-no-scroll:text-xneu-200/50
-		      lightbase dark:darkbase'>
+		      dark:data-no-scroll:text-xneu-200/50'>
 	<div className='mt-4'></div>
 	<Mander>
 	  <BarroitMan/>
@@ -122,13 +117,13 @@ return (
 	<div className='mt-4'></div>
       {sections.map(([ name, [ str, substr ] ]) => (
 	<article key={ name }>
-	  <h2 className='text-[4cqw] xl:text-[2.5cqh]'>{ name }</h2>
-	  <div className='text-[3cqw] xl:text-[2cqh] **:pl-[8ch] **:text-wrap'>
-	    <pre>
+	  <h2 className='font-extrabold'>{ name }</h2>
+	  <div className='**:text-wrap'>
+	    <pre className='pl-[8ch]'>
 	      { str }
 	    {!substr ? undefined : (
-	      <pre>
-	        { substr }
+	      <pre className='pl-[4ch]'>
+		{ substr }
 	      </pre>
 	    )}
 	    </pre>
@@ -136,7 +131,7 @@ return (
 	</article>
       ))}
 	<Mander>
-	  <p>Barroit 0.39.01-negi</p>
+	  <p>Barroit 0.39.01</p>
 	  <p>2025-07-20</p>
 	  <BarroitMan/>
 	</Mander>

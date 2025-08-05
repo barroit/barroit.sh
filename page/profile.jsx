@@ -83,7 +83,7 @@ return (
       </ToOurs>
     </Shell>
   </div>
-  <div id='underhero' className='absolute invisible translate-y-2'></div>
+  <div id='underhero' className='absolute invisible translate-y-16'></div>
 </div>
 ) /* return */
 }
