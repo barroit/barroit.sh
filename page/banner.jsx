@@ -12,7 +12,7 @@ import TheFuckingContent from './react/tfc.jsx'
 import Flicker from './react/flicker.jsx'
 import { rand_once } from './react/rand.js'
 import Shell from './react/shell.jsx'
-import Totheir from './react/totheir.jsx'
+import { ToTheirs } from './react/link.jsx'
 
 const nav_urls = [
 	[ 'Github', 'https://github.com/barroit' ],
@@ -190,11 +190,11 @@ return (
 			before:left-0 after:right-0
 			hover:before:-translate-x-1
 			hover:after:translate-x-1
-			active:before:-translate-x-2
-			active:after:translate-x-2'>
-	<Totheir href={ url }>
+			pointer-coarse:active:before:-translate-x-2
+			pointer-coarse:active:after:translate-x-2'>
+	<ToTheirs href={ url }>
 	  <Flicker>{ name }</Flicker>
-	</Totheir>
+	</ToTheirs>
       </Shell>
     </li>
   ))}

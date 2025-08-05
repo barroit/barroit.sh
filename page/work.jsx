@@ -20,7 +20,7 @@ import { ChevronDownIcon,
 } from '@primer/octicons-react'
 
 import Flicker from './react/flicker.jsx'
-import Totheir from './react/totheir.jsx'
+import { ToTheirs } from './react/link.jsx'
 import digitlen from './react/digitlen.js'
 
 import { age_since } from './age.js'
@@ -194,13 +194,13 @@ return (
   <div className='space-y-1'>
     <div className='text-[2.5cqh] font-bold space-x-1'>
       <RepoIcon size='16' className='size-[2.5cqh]'/>
-      <Totheir href={ `https://github.com/barroit/${repo.name}` }
+      <ToTheirs href={ `https://github.com/barroit/${repo.name}` }
 	       className='!decoration-[0.4cqmax]'>
 	<Flicker className='after:text-[2cqh] after:-ml-[0.6cqmax]
 			    after:font-bold after:content-["_↗"]'>
 	  { repo.name }
 	</Flicker>
-      </Totheir>
+      </ToTheirs>
     </div>
     <p className='pl-[0.5cqw] text-[1.5cqh] text-xneu-700 dark:text-xneu-400'>
       { repo.desc }
@@ -237,12 +237,12 @@ return (
     </FieldDesc>
     <FieldSlot className='col-span-2 xl:col-span-1 *:last:!decoration-[0.4vmin]'>
       <LinkIcon size='24'/>
-      <Totheir href={ repo.docs } className='xl:hidden'>
+      <ToTheirs href={ repo.docs } className='xl:hidden'>
 	<Flicker>{ docs }</Flicker>
-      </Totheir>
-      <Totheir href={ repo.docs } className='hidden xl:inline-block'>
+      </ToTheirs>
+      <ToTheirs href={ repo.docs } className='hidden xl:inline-block'>
 	<Flicker>{ docs_xl }</Flicker>
-      </Totheir>
+      </ToTheirs>
     </FieldSlot>
     <FieldSlot className='col-span-2'>
       <TagIcon size='24'/>
