@@ -48,22 +48,13 @@ for (const line of lines) {
 	}
 }
 
-function BarroitMan()
+function ManTag()
 {
 return (
-<p>
+<pre>
   <span className='underline'>BARROIT</span>
   (1)
-</p>
-) /* return */
-}
-
-function Mander({ children })
-{
-return (
-<article className='flex justify-between'>
-  { children }
-</article>
+</pre>
 ) /* return */
 }
 
@@ -73,6 +64,7 @@ export default function Man()
 
 	const to_header = (event) =>
 	{
+		console.log(1)
 		const header = event.currentTarget.previousElementSibling
 
 		const rect = header.getBoundingClientRect()
@@ -89,6 +81,7 @@ export default function Man()
 				box.current.removeAttribute('data-no-scroll')
 			else
 				box.current.setAttribute('data-no-scroll', '')
+
 		}, { threshold: 1 })
 
 		observer.observe(box.current)
@@ -96,26 +89,24 @@ export default function Man()
 	}, [])
 
 return (
-<div>
-  <article className='relative *:border-[0.4vmin] *:border-pink-700'>
-    <header className='relative z-1 translate-y-2 w-min px-2
-		       bg-lneu-50 dark:bg-lneu-950'>
-      <h1 className='font-black text-[4vmin] xl:text-[3vmin]'>README</h1>
-    </header>
-    <div onClick={ to_header }>
-      <div ref={ box }
-	   className='@container relative w-90 h-[85svh] px-2 text-[2cqh]
-		      lightbase dark:darkbase overflow-auto duration-400
-		      data-no-scroll:pointer-events-none
-		      data-no-scroll:text-xneu-900/50
-		      dark:data-no-scroll:text-xneu-200/50'>
-	<div className='mt-4'></div>
-	<Mander>
-	  <BarroitMan/>
-	  <p>Barroit Manual</p>
-	  <BarroitMan/>
-	</Mander>
-	<div className='mt-4'></div>
+<article className='*:border-[0.4vmin] *:border-pink-700'>
+  <header className='translate-y-2 w-min px-2 lightbase dark:darkbase'>
+    <h1 className='font-black text-[4vmin] xl:text-[3vmin]'>README</h1>
+  </header>
+  <div onClick={ to_header }>
+    <div ref={ box }
+	 className='@container h-[85svh] px-2 overflow-auto
+		    text-[2cqh] duration-400 lightbase dark:darkbase
+		    data-no-scroll:pointer-events-none
+		    data-no-scroll:text-xneu-900/50
+		    dark:data-no-scroll:text-xneu-200/50'>
+      <pre className='invisible'>miku</pre>
+      <header className='flex justify-between'>
+	<ManTag/>
+	<h2>Barroit Manual</h2>
+	<ManTag/>
+      </header>
+      <pre className='invisible'>miku</pre>
       {sections.map(([ name, [ str, substr ] ]) => (
 	<article key={ name }>
 	  <h2 className='font-extrabold'>{ name }</h2>
@@ -123,22 +114,19 @@ return (
 	    <pre className='pl-[8ch]'>
 	      { str }
 	    {!substr ? undefined : (
-	      <pre className='pl-[4ch]'>
-		{ substr }
-	      </pre>
+	      <pre className='pl-[4ch]'>{ substr }</pre>
 	    )}
 	    </pre>
 	  </div>
-	</article>
+        </article>
       ))}
-	<Mander>
-	  <p>Barroit 0.39.01</p>
-	  <p>2025-07-20</p>
-	  <BarroitMan/>
-	</Mander>
-      </div>
+      <footer className='flex justify-between'>
+	<p>Barroit 0.39.01</p>
+	<p>2025-07-20</p>
+	<ManTag/>
+      </footer>
     </div>
-  </article>
-</div>
+  </div>
+</article>
 ) /* return */
 }

@@ -23,7 +23,7 @@ function Totop()
 	}
 
 return (
-<div>
+<div className='max-w-min'>
   <button onClick={ reset_view } className='p-5'>
     <ArrowUp className='size-5 pointer-coarse:size-8 text-cyan-400
 			hover:scale-150 focus-visible:scale-150
@@ -43,9 +43,9 @@ return (
   <div className='absolute z-1 top-1/2 left-1/2
 		  -translate-x-1/2 -translate-y-1/2
 		  px-1 portrait:pointer-coarse:px-2
-		  rounded-full lightbase dark:darkbase'>
+		  lightbase dark:darkbase'>
     <Shell className='px-3 portrait:pointer-coarse:px-4
-		      text-nowrap text-[3vmin]
+		      text-nowrap text-[4vmin] xl:text-[3vmin]
 		      before:left-0 after:right-0
 		      hover:before:-translate-x-1 hover:after:translate-x-1
 		      pointer-coarse:active:before:-translate-x-2
@@ -69,9 +69,10 @@ return (
     <Hero/>
     <HeroSep/>
     <div className='relative overflow-hidden
-		    *:not-first:not-last:h-[100svh] *:not-first:mt-16
-		    *:not-first:flex *:not-first:justify-center'>
-      <div className='star-strip'></div>
+		    *:not-first:not-last:max-w-90
+		    *:not-first:not-last:h-[100svh]
+		    *:not-first:mt-16 *:not-first:mx-auto'>
+      <div className='star-strip -z-39'></div>
       <Man/>
       <Work/>
       <Timeline/>

@@ -23,6 +23,8 @@ import Flicker from './react/flicker.jsx'
 import { ToTheirs } from './react/link.jsx'
 import digitlen from './react/digitlen.js'
 
+import SectionError from './secerr.jsx'
+
 import { age_since } from './age.js'
 
 const MARKER_SIZE = 24
@@ -41,24 +43,6 @@ function hidden(item)
 	const styles = getComputedStyle(item)
 
 	return styles.display == 'none'
-}
-
-function Error({ error })
-{
-return (
-<div className='h-full flex justify-center items-center'>
-  <div className='relative lightbase dark:darkbase'>
-    <div className='p-3 flex items-center border-[0.4vmin] rounded-[2vmin]
-		    border-blue-500'>
-      <img src='/frown.png' className='h-12' draggable='false'/>
-      <article className='ml-4 text-[3vmin]'>
-        <p>Pinned repository</p>
-        <p>isn't available right now</p>
-      </article>
-    </div>
-  </div>
-</div>
-) /* return */
 }
 
 function Circle({ size, className, fill })
@@ -187,10 +171,8 @@ function RepoCard({ repo, focused })
 	const pushed = fmt_date(repo.pushed)
 
 return (
-<section className={ clsx('@container p-2 space-y-3',
-			  'bg-xneu-50 dark:bg-xneu-900',
-			  !focused && 'select-none') }
-	 inert={ !focused }>
+<div inert={ !focused }
+     className='@container p-2 space-y-3 bg-lneu-50 dark:bg-lneu-900'>
   <div className='space-y-1'>
     <div className='text-[2.5cqh] font-bold space-x-1'>
       <RepoIcon size='16' className='size-[2.5cqh]'/>
@@ -235,7 +217,8 @@ return (
     <FieldDesc name='push' desc={ pushed } className='xl:hidden'>
       <ClockIcon size='24'/>
     </FieldDesc>
-    <FieldSlot className='col-span-2 xl:col-span-1 *:last:!decoration-[0.4vmin]'>
+    <FieldSlot className='col-span-2 xl:col-span-1
+			  *:last:!decoration-[0.4vmin]'>
       <LinkIcon size='24'/>
       <ToTheirs href={ repo.docs } className='xl:hidden'>
 	<Flicker>{ docs }</Flicker>
@@ -249,13 +232,13 @@ return (
       <span className='hidden xl:inline-block'>{ topics }</span>
       <span className='xl:hidden'>{ topics_sm }</span>
     </FieldSlot>
-    <FieldSlot className='mt-1 *:first:!mr-1'>
+    <FieldSlot className='mt-1 flex items-center'>
       <DotFillIcon fill={ repo.lang.color } size='16'
-		   className='scale-180 !align-text-top'/>
+		   className={ clsx(focused && 'scale-180') }/>
       <span>{ repo.lang.name }</span>
     </FieldSlot>
   </div>
-</section>
+</div>
 ) /* return */
 }
 
@@ -352,9 +335,9 @@ function Showcase({ repos })
 	}, [])
 
 return (
-<div className='xl:mr-10 py-5 flex gap-x-10'>
+<div className='py-5 flex gap-x-10'>
   <svg ref={ rail } viewBox='0 0 202 1002' width='20' height='100'
-       className='relative w-auto h-full hidden xl:block text-xneu-500'>
+       className='w-auto h-full hidden xl:block text-xneu-500'>
     <path d='M 180 0
 	     h 20
 	     v 20
@@ -369,33 +352,33 @@ return (
 	  className='duration-200' fill={ color }/>
   ))}
   </svg>
-  <div className='flex flex-col justify-between w-80'>
+  <div className='flex-1 max-h-full my-auto space-y-4 portrait:space-y-12'>
   {slots.map((idx, i) => (
     <div key={ idx }
 	 onFocus={ loading ? undefined : () => marker_grow(i, rail) }
 	 onBlur={ loading ? undefined : () => marker_shrink(i, rail) }
 	 onPointerEnter={ loading ? undefined : () => marker_grow(i, rail) }
 	 onPointerLeave={ loading ? undefined : () => marker_shrink(i, rail) }
-	 className='relative odd:scale-75 even:scale-110
+	 className='relative odd:scale-85 even:scale-105
 		    *:rounded-[1vmin] *:last:shadow-rb'>
     {i != 1 && (
-      <div className='absolute inset-0 z-1 backdrop-blur-[0.2cqh]
+      <div className='absolute inset-0 backdrop-blur-[0.2cqh]
 		      bg-xneu-100/50 dark:bg-xneu-900/50'>
       {!loading && (
-	<button className='group w-full h-full flex justify-center items-center
-			   border-4 border-transparent hover:border-blue-400
-			   duration-200'
-		onClick={ () => focus(idx) }>
-	  <div className='*:size-[8cqh] *:text-pink-400 *:duration-200
-			  *:group-hover:scale-150
-			  *:group-focus-visible:scale-150
-			  pointer-coarse:*:group-active:scale-150'>
-	  {i ? (
-	    <ChevronDownIcon size='12'/>
-	  ) : (
-	    <ChevronUpIcon size='12'/>
-	  )}
-	  </div>
+	<button onClick={ () => focus(idx) }
+		className='group size-full border-4
+			   !rounded-[1vmin] duration-200
+			   border-transparent hover:border-blue-400
+			   *:size-[8cqh] *:m-auto
+			   *:duration-200 *:text-pink-400
+			   *:group-hover:scale-150
+			   *:group-focus-visible:scale-150
+			   pointer-coarse:*:group-active:scale-150'>
+	{i ? (
+	  <ChevronDownIcon size='12'/>
+	) : (
+	  <ChevronUpIcon size='12'/>
+	)}
 	</button>
       )}
       </div>
@@ -446,13 +429,11 @@ export default function Work()
 		fill_pinned()
 	}, [])
 
-return (
-<div>
-{!pinned ? (
-  <Error error={ pinned }/>
+return !pinned ? (
+<SectionError>
+  <pre>Pinned repo's missing in action</pre>
+</SectionError>
 ) : (
-  <Showcase repos={ pinned }/>
-)}
-</div>
+<Showcase repos={ pinned }/>
 ) /* return */
 }
