@@ -23,7 +23,7 @@ function Totop()
 	}
 
 return (
-<div className='h-full mt-16 flex justify-center'>
+<div>
   <button onClick={ reset_view } className='p-5'>
     <ArrowUp className='size-5 pointer-coarse:size-8 text-cyan-400
 			hover:scale-150 focus-visible:scale-150
@@ -51,7 +51,7 @@ return (
 		      pointer-coarse:active:before:-translate-x-2
 		      pointer-coarse:active:after:translate-x-2'>
       <ToOurs href='#underhero'>
-	<Flicker>end of shell output</Flicker>
+	<Flicker>End of trace</Flicker>
       </ToOurs>
     </Shell>
   </div>
@@ -68,11 +68,13 @@ return (
   <main>
     <Hero/>
     <HeroSep/>
-    <div className='relative overflow-hidden'>
+    <div className='relative overflow-hidden
+		    *:not-first:not-last:h-[100svh] *:not-first:mt-16
+		    *:not-first:flex *:not-first:justify-center'>
       <div className='star-strip'></div>
       <Man/>
       <Work/>
-      {/* <Timeline/> */}
+      <Timeline/>
       <Totop/>
     </div>
   </main>

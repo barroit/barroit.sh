@@ -71,11 +71,12 @@ export default function Man()
 {
 	const box = useRef()
 
-	const sync_view = (event) =>
+	const to_header = (event) =>
 	{
-		const rect = event.currentTarget.getBoundingClientRect()
-		const y = window.scrollY + rect.top -
-			  window.innerHeight / 2 + rect.height / 2
+		const header = event.currentTarget.previousElementSibling
+
+		const rect = header.getBoundingClientRect()
+		const y = window.scrollY + rect.top - rect.height
 
 		window.scrollTo({ top: y, behavior: 'smooth' })
 	}
@@ -95,13 +96,13 @@ export default function Man()
 	}, [])
 
 return (
-<div className='section h-[100svh] mt-16 flex justify-center items-center'>
-  <article className='relative'>
-    <header className='relative z-1 translate-y-2 w-min px-2 border-[0.4vmin]
-		       border-pink-700 bg-lneu-50 dark:bg-lneu-950'>
-      <h1 className='p-1 font-black text-[4vmin] xl:text-[3vmin]'>README</h1>
+<div>
+  <article className='relative *:border-[0.4vmin] *:border-pink-700'>
+    <header className='relative z-1 translate-y-2 w-min px-2
+		       bg-lneu-50 dark:bg-lneu-950'>
+      <h1 className='font-black text-[4vmin] xl:text-[3vmin]'>README</h1>
     </header>
-    <div onClick={ sync_view } className='border-[0.4vmin] border-pink-700'>
+    <div onClick={ to_header }>
       <div ref={ box }
 	   className='@container relative w-90 h-[85svh] px-2 text-[2cqh]
 		      lightbase dark:darkbase overflow-auto duration-400

@@ -353,9 +353,8 @@ function Showcase({ repos })
 
 return (
 <div className='xl:mr-10 py-5 flex gap-x-10'>
-  <svg ref={ rail } viewBox='0 0 202 1002'
-       width='20' height='100' className='relative w-auto h-full
-					  hidden xl:block text-xneu-500'>
+  <svg ref={ rail } viewBox='0 0 202 1002' width='20' height='100'
+       className='relative w-auto h-full hidden xl:block text-xneu-500'>
     <path d='M 180 0
 	     h 20
 	     v 20
@@ -448,7 +447,7 @@ export default function Work()
 	}, [])
 
 return (
-<div className='section h-[100svh] mt-16 flex justify-center'>
+<div>
 {!pinned ? (
   <Error error={ pinned }/>
 ) : (
