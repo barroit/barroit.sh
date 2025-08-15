@@ -17,19 +17,18 @@ function Commit({ sha, html_url, commit, author, repo, last })
 {
 return (
 <div className='*:before:mr-[1ch] last:*:not-first:before:mr-[2ch]
-		*:before:!animate-none
 		*:first:before:content-["*"]
 		not-last:*:not-first:before:content-["|"]
 		not-last:*:not-first:before:text-red-700
 		not-last:*:not-first:before:font-bold'>
   <pre className='*:text-yellow-600'>
-    <div className='xl:hidden'>
+    <span className='xl:hidden'>
       <span>commit </span>
       <ToTheirs href={ html_url }>
 	<Flicker>{ sha }</Flicker>
       </ToTheirs>
-    </div>
-    <div className='hidden xl:inline-block'>
+    </span>
+    <span className='hidden xl:inline-block'>
       <span>commit </span>
       <ToTheirs href={ html_url }>
 	<Flicker>{ sha }</Flicker>
@@ -39,7 +38,7 @@ return (
 	<Flicker>{ repo.name }</Flicker>
       </ToTheirs>
       <span>)</span>
-    </div>
+    </span>
   </pre>
   <pre>Author: { author.name } { `<${ author.email }>` }</pre>
   <pre>Date:   { readable_date(author.date) }</pre>
@@ -117,17 +116,17 @@ return !commits ? (
   <pre>No commit for you</pre>
 </SectionError>
 ) : (
-<article>
+<article className='py-5'>
   <div ref={ box }
-       className='group max-w-min h-[85svh] py-1
+       className='group max-w-min h-full py-1
 		  rounded-[1vmin] bg-lneu-50 dark:bg-lneu-900 shadow-rb'>
     <div className='flex h-full duration-400 group-data-no-scroll:opacity-50'>
       <header className='mr-1 text-vertical font-bold text-nowrap'>
-	<h1 className='text-[2vh]'>Recent commit by barroit</h1>
+	<h1 className='text-[2svh]'>Recent commit by barroit</h1>
       {commits.count ? (
-	<p className='text-right text-[1.5vh]'>{ commits.count } in record</p>
+	<p className='text-right text-[1.5svh]'>{ commits.count } in record</p>
       ) : (
-	<p className='text-right text-[1.5vh]'>
+	<p className='text-right text-[1.5svh]'>
 	  <span className='motion-safe:animate-pulse
 			   rounded-[0.7vmin] bg-xneu-200 dark:bg-xneu-800'>
 	    <span className='invisible'>39mikumikumiku</span>
@@ -137,7 +136,7 @@ return !commits ? (
       </header>
     {!commits.count ? (
       <div className='w-82 pr-2 space-y-1 overflow-y-auto
-		      text-[1.5vh] motion-safe:animate-pulse'>
+		      text-[1.5svh] motion-safe:animate-pulse'>
       {commits.items.map((_, i) => (
 	<div key={ i }
 	     className='rounded-[0.7vmin] bg-xneu-200 dark:bg-xneu-800'>
@@ -146,7 +145,7 @@ return !commits ? (
       ))}
       </div>
       ) : (
-      <div className='w-82 pr-2 overflow-y-auto text-[1.5vh]'>
+      <div className='w-82 pr-2 overflow-y-auto text-[1.5svh]'>
 	<div>
 	{commits.items.map((commit, i) => (
 	  <Commit { ...commit }

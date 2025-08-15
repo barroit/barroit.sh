@@ -73,14 +73,14 @@ export default function Man()
 	}
 
 return (
-<article className='*:border-[0.4vmin] *:border-pink-700'>
-  <header className='translate-y-2 w-min px-2 lightbase dark:darkbase'>
-    <h1 className='font-black text-[4vmin] xl:text-[3vmin]'>README</h1>
+<article className='py-5 *:rounded-[1vmin]
+		    *:bg-lneu-50 *:dark:bg-lneu-900 *:shadow-rb'>
+  <header className='translate-y-2 w-min px-2 !rounded-bl-none'>
+    <h1 className='font-black text-[3svh]'>README</h1>
   </header>
-  <div onClick={ to_header }>
+  <div onClick={ to_header } className='h-full py-1'>
     <div ref={ box }
-	 className='@container h-[85svh] px-2 overflow-auto
-		    text-[2cqh] duration-400 lightbase dark:darkbase
+	 className='h-full px-2 overflow-auto text-[1.7svh] duration-400
 		    data-no-scroll:text-xneu-900/50
 		    dark:data-no-scroll:text-xneu-200/50'>
       <pre className='invisible'>miku</pre>
@@ -92,7 +92,7 @@ return (
       <pre className='invisible'>miku</pre>
       {sections.map(([ name, [ str, substr ] ]) => (
 	<article key={ name }>
-	  <h2 className='font-extrabold'>{ name }</h2>
+	  <h2 className='font-bold'>{ name }</h2>
 	  <div className='**:text-wrap'>
 	    <pre className='pl-[8ch]'>
 	      { str }

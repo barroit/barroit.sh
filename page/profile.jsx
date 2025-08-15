@@ -71,7 +71,8 @@ return (
     <div className='relative overflow-hidden
 		    *:not-first:not-last:max-w-90
 		    *:not-first:not-last:h-[100svh]
-		    *:not-first:mt-16 *:not-first:mx-auto'>
+		    *:not-first:not-last:mt-16
+		    *:not-first:mx-auto *:last:mt-8'>
       <div className='star-strip -z-39'></div>
       <Man/>
       <Work/>
