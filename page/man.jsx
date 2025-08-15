@@ -3,7 +3,7 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
-import { useEffect, useRef } from 'react'
+import useScrollable from './scrollable.js'
 
 import man from './barroit.1?raw'
 
@@ -60,7 +60,7 @@ return (
 
 export default function Man()
 {
-	const box = useRef()
+	const box = useScrollable()
 
 	const to_header = (event) =>
 	{
@@ -72,21 +72,6 @@ export default function Man()
 		window.scrollTo({ top: y, behavior: 'smooth' })
 	}
 
-	useEffect(() =>
-	{
-		const observer = new IntersectionObserver(([ entry ]) =>
-		{
-			if (entry.isIntersecting)
-				box.current.removeAttribute('data-no-scroll')
-			else
-				box.current.setAttribute('data-no-scroll', '')
-
-		}, { threshold: 1 })
-
-		observer.observe(box.current)
-		return () => observer.disconnect()
-	}, [])
-
 return (
 <article className='*:border-[0.4vmin] *:border-pink-700'>
   <header className='translate-y-2 w-min px-2 lightbase dark:darkbase'>
@@ -96,7 +81,6 @@ return (
     <div ref={ box }
 	 className='@container h-[85svh] px-2 overflow-auto
 		    text-[2cqh] duration-400 lightbase dark:darkbase
-		    data-no-scroll:pointer-events-none
 		    data-no-scroll:text-xneu-900/50
 		    dark:data-no-scroll:text-xneu-200/50'>
       <pre className='invisible'>miku</pre>

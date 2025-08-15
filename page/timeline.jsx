@@ -10,12 +10,14 @@ import { ToTheirs } from './react/link.jsx'
 
 import { readable_date } from './age.js'
 import SectionError from './secerr.jsx'
+import useScrollable from './scrollable.js'
 
 import fake from '../.tmp/data.json'
 
 export default function Timeline()
 {
 	const [ commits, push ] = useState({})
+	const box = useScrollable([ commits ])
 
 	const push_commits = async () =>
 	{
@@ -43,11 +45,13 @@ export default function Timeline()
 		const count = latest.total_count
 		const items = latest.items.map(({
 			sha,
+			html_url,
 			commit,
 			commit: { author },
 			repository,
 		}) => ({
 			sha,
+			html_url,
 			commit,
 			author,
 			repo: repository,
@@ -72,61 +76,80 @@ return !commits ? (
   </div>
 </div>
 ) : (
-<article className='@container py-5'>
-  <div className='max-w-min h-full mx-auto py-1
-		  flex rounded-[1vmin] bg-lneu-900'>
-    <header className='mr-1 text-vertical font-bold text-nowrap'>
-      <h1 className='text-[2cqh]'>
-	Recent commit by barroit
-      </h1>
-      <p className='text-right text-[1.5cqh]'>
-	{ commits.count } in record
-      </p>
-    </header>
-    <div className='pr-2 overflow-auto text-[1.5cqh]'>
-    {commits.items.map(({ sha, commit, author, repo }, i) => (
-      <div key={ sha }
-	   data-last={ i == commits.items.length - 1 ? '' : undefined }
-	   className='*:first:before:content-["*"]
-		      not-data-last:*:not-first:before:content-["|"]
-		      not-data-last:*:not-first:before:text-red-700
-		      not-data-last:*:not-first:before:font-bold
-		      *:before:mr-[1ch] data-last:*:not-first:before:mr-[2ch]'>
-	<pre>
-	  <span className='text-yellow-600'>
-	    commit { sha } (
+<article>
+  <div ref={ box }
+       className='group max-w-min h-[85svh] py-1
+		  rounded-[1vmin] bg-lneu-50 dark:bg-lneu-900 shadow-rb'>
+    <div className='flex h-full duration-400 group-data-no-scroll:opacity-50'>
+      <header className='mr-1 text-vertical font-bold text-nowrap'>
+	<h1 className='text-[2vh]'>
+	  Recent commit by barroit
+	</h1>
+	<p className='text-right text-[1.5vh]'>
+	  { commits.count } in record
+	</p>
+      </header>
+      <div className='w-82 pr-2 overflow-auto text-[1.5vh]'>
+      {commits.items.map(({ sha, html_url, commit, author, repo }, i) => (
+	<div key={ sha }
+	     data-last={ i == commits.items.length - 1 ? '' : undefined }
+	     className='*:before:mr-[1ch] data-last:*:not-first:before:mr-[2ch]
+			*:first:before:content-["*"]
+			not-data-last:*:not-first:before:content-["|"]
+			not-data-last:*:not-first:before:text-red-700
+			not-data-last:*:not-first:before:font-bold'>
+	  <pre className='*:text-yellow-600'>
+	    <div className='xl:hidden'>
+	      <span>commit </span>
+	      <ToTheirs href={ html_url }>
+		<Flicker>{ sha }</Flicker>
+	      </ToTheirs>
+	    </div>
+	    <div className='hidden xl:inline-block'>
+	      <span>commit </span>
+	      <ToTheirs href={ html_url }>
+		<Flicker>{ sha }</Flicker>
+	      </ToTheirs>
+	      <span> (</span>
+	      <ToTheirs href={ repo.html_url }>
+		<Flicker>{ repo.name }</Flicker>
+	      </ToTheirs>
+	      <span>)</span>
+	    </div>
+	  </pre>
+	  <pre>Author: { author.name } { `<${ author.email }>` }</pre>
+	  <pre>Date:   { readable_date(author.date) }</pre>
+	  <pre className='xl:hidden'>
+	    <span>Repo:   </span>
 	    <ToTheirs href={ repo.html_url }>
 	      <Flicker>{ repo.name }</Flicker>
 	    </ToTheirs>
-	    )
-	  </span>
-	</pre>
-	<pre>Author: { author.name } { `<${ author.email }>` }</pre>
-	<pre>Date:   { readable_date(author.date) }</pre>
-	<pre></pre>
-      {commit.message.split('\n').map((line, i) => (
-	<pre key={ i }>
-	  <pre className='inline-block pl-[4ch]'>{ line }</pre>
-	</pre>
+	  </pre>
+	  <pre></pre>
+	{commit.message.split('\n').map((line, i) => (
+	  <pre key={ i }>
+	    <pre className='inline-block pl-[4ch]'>{ line }</pre>
+	  </pre>
+	))}
+	{i != commits.items.length - 1 && (
+	  <pre></pre>
+	)}
+	</div>
       ))}
-      {i != commits.items.length - 1 && (
-	<pre></pre>
-      )}
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>~</pre>
+	<pre>(END)</pre>
       </div>
-    ))}
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>~</pre>
-      <pre>(END)</pre>
     </div>
   </div>
 </article>
