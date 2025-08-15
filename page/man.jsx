@@ -64,7 +64,6 @@ export default function Man()
 
 	const to_header = (event) =>
 	{
-		console.log(1)
 		const header = event.currentTarget.previousElementSibling
 
 		const rect = header.getBoundingClientRect()

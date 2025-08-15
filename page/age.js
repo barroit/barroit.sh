@@ -3,6 +3,31 @@
  * Copyright 2025 Jiamu Sun <barroit@linux.com>
  */
 
+const WEEKDAYS = [
+	'Sun',
+	'Mon',
+	'Tue',
+	'Wed',
+	'Thu',
+	'Fri',
+	'Sat',
+]
+
+const MONTHS = [
+	'Jan',
+	'Feb',
+	'Mar',
+	'Apr',
+	'May',
+	'Jun',
+	'Jul',
+	'Aug',
+	'Sep',
+	'Oct',
+	'Nov',
+	'Dec',
+]
+
 export function age_since(ts)
 {
 	const birth = new Date(ts)
@@ -51,4 +76,34 @@ export function fmt_age(age)
 	}
 
 	return strs.join(', ')
+}
+
+function pad(num, n)
+{
+	return num.toString().padStart(n, '0')
+}
+
+export function readable_date(time)
+{
+	const date = new Date(time)
+
+	const week = WEEKDAYS[date.getDay()]
+	const month = MONTHS[date.getMonth()]
+	const day = date.getDate()
+
+	const hours = pad(date.getHours(), 2)
+	const minutes = pad(date.getMinutes(), 2)
+	const seconds = pad(date.getSeconds(), 2)
+	const years = pad(date.getFullYear(), 2)
+
+	const bias = date.getTimezoneOffset() * -1
+	const abs_bias = Math.abs(bias)
+
+	const sign = bias < 0 ? '-' : '+'
+	const hh = pad((abs_bias / 60) >>> 0, 2)
+	const mm = pad(abs_bias % 60, 2)
+
+	return `${ week } ${ month } ` +
+	       `${ hours }:${ minutes }:${ seconds } ${ years } ` +
+	       `${ sign }${ hh }${ mm }`
 }

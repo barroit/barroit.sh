@@ -4,7 +4,6 @@
  */
 
 import * as highlights from './highlights.js'
-import * as works from './works.js'
 
 const cache = {}
 
@@ -38,7 +37,6 @@ function bump_cache(fn, force, res)
 }
 
 init_cache(highlights.query, highlights.cache_timeout)
-// init_cache(works.query, works.cache_timeout)
 
 async function fetch_handler(req, env)
 {
