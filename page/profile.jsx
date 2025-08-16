@@ -43,7 +43,7 @@ return (
   <div className='absolute z-1 top-1/2 left-1/2
 		  -translate-x-1/2 -translate-y-1/2
 		  px-1 portrait:pointer-coarse:px-2
-		  lightbase dark:darkbase'>
+		  text-xneu-950 bg-white dark:text-xneu-200 dark:bg-xneu-950'>
     <Shell className='px-3 portrait:pointer-coarse:px-4
 		      text-nowrap text-[4vmin] xl:text-[3vmin]
 		      before:left-0 after:right-0

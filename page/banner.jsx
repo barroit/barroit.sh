@@ -210,7 +210,7 @@ return (
 		   pt-[1cqh] pl-[1cqh] pr-[0.5cqh]
 		   flex justify-between items-center
 		   text-[3cqh] border-b-[0.4svh]
-		   lightbase dark:darkbase
+		   text-xneu-950 bg-white dark:text-xneu-200 dark:bg-xneu-950
 		   border-xneu-200 dark:border-xneu-700'>
   <Lustrous/>
   <Strip/>
