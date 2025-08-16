@@ -151,9 +151,10 @@ to {
 	height: 110%;
 
 	opacity: 30%;
+	filter: invert(100%);
 
-	@variant light {
-		filter: invert(100%);
+	@variant dark {
+		filter: invert(0%);
 	}
 
 	@variant motion-safe {

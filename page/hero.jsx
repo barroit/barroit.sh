@@ -164,7 +164,7 @@ return (
       { '$ ' }
     </pre>
     <div className='absolute right-[10cqmin] bottom-[3cqmin]
-		    h-[20cqh] flex portrait:hidden light:invert'>
+		    h-[20cqh] flex portrait:hidden invert dark:invert-0'>
       <img src='/miku-working.png'
 	 className='object-cover select-none'
 	 alt='' aria-hidden='true' draggable='false'/>
@@ -199,7 +199,7 @@ return (
 		  after:bg-linear-to-t after:to-transparent
 		  after:from-white/50 dark:after:from-xneu-950/95'>
     <img src='/miku-headpat.png'
-	 className='h-full object-cover select-none light:invert'
+	 className='h-full object-cover select-none invert dark:invert-0'
 	 alt='miku needs your headpat' draggable='false'/>
   </div>
 </div>

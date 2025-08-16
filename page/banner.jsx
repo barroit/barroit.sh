@@ -173,7 +173,7 @@ return (
 			 enabled && 'border-red-600') }>
   {strip_icons.map(([ name, alt ], i) => (
     <img key={ name } src={ name } alt={ alt }
-	 className='w-2 light:invert'/>
+	 className='w-2 invert dark:invert-0'/>
   ))}
 </button>
 ) /* return */
