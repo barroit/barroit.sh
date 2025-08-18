@@ -1,0 +1,1 @@
+../../barroit/scripts/react-init-shared.sh

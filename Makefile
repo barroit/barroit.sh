@@ -1,27 +1,40 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-.PHONY: reactfix dev vite-build local deploy
+READ_ADDR  := $$(cat build/host)
+WRITE_ADDR := ./scripts/local-addr.py
+ADDR_FILE  := build/host
 
-dev:
+LIVE_LISTEN    := --host $(READ_ADDR)
+PREVIEW_LISTEN := --ip   $(READ_ADDR)
 
-reactfix:
-	scripts/reactfix.sh
+ifneq ($(HOSTFREE),)
+  ADDR_FILE      := /dev/null
+  WRITE_ADDR     :=
+  LIVE_LISTEN    :=
+  PREVIEW_LISTEN :=
+endif
+
+.PHONY: init-shared live bundle preview deploy
+
+live:
+
+init-shared:
+	scripts/init-shared.sh
 
 build:
 	mkdir build
 
 build/host: build
-	ip -4 -brief -json -pretty address show scope global | \
-	jq --raw-output .[0].addr_info.[0].local >build/host
+	$(WRITE_ADDR) >$(ADDR_FILE)
 
-dev: reactfix build/host
-	npx vite --host $$(cat build/host)
+live: init-shared build/host
+	npx vite $(LIVE_LISTEN)
 
-vite-build:
+bundle: init-shared
 	npx vite build
 
-local: build/host reactfix vite-build
-	npx wrangler dev --ip $$(cat build/host)
+preview: bundle build/host
+	npx wrangler dev $(PREVIEW_LISTEN)
 
-deploy: reactfix vite-build
+deploy: bundle
 	npx wrangler deploy
