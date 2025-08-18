@@ -1,1 +1,1 @@
-../../barroit/scripts/react-init-shared.sh
+../../barroit/site-lib/scripts/init-shared.sh

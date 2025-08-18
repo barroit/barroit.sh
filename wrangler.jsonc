@@ -6,19 +6,19 @@
 {
    "$schema": "node_modules/wrangler/config-schema.json",
    "name": "barroit-sh",
-   "main": "worker/index.js",
+   "main": "worker/entry.js",
    "compatibility_date": "2025-07-18",
    "assets": {
       "html_handling": "drop-trailing-slash",
-      "run_worker_first": [ "/query/*" ]
+      "run_worker_first": [ "/query/*" ],
    },
    "observability": {
-      "enabled": true
+      "enabled": true,
    },
-  "routes": [
-    {
-      "pattern": "barroit.sh",
-      "custom_domain": true
-    }
-  ]
+   "routes": [
+      {
+         "pattern": "barroit.sh",
+         "custom_domain": true,
+      },
+   ],
 }
