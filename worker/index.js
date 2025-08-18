@@ -53,7 +53,9 @@ async function fetch_handler(req, env)
 		break
 
 	default:
-		return new Response(null, { status: 404 })
+		const index = new URL('/', url)
+
+		return Response.redirect(index, 301)
 	}
 
 	let res = fetch_cache(fn)
