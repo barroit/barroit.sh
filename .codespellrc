@@ -2,6 +2,6 @@
 
 [codespell]
 
-skip = package-lock.json
+skip = pnpm-lock.yaml
 
 check-filenames = true
