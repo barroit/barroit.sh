@@ -1,8 +1,7 @@
-License Exceptions
-==================
+LICENSES
+========
 
-The following image files are *not* covered by GPL-3.0-or-later of this
-project:
+The following files are *not* covered by GPL-3.0-or-later of this repo:
 
 	miku-headpat.png
 	miku-working.png
@@ -11,15 +10,12 @@ project:
 	love.png
 	smile.png
 
-	negi-only.png
-	star-strip.png
-
 miku-headpat.png and miku-working.png are derived from ASCII art obtained from
 anime.ja.utf8art.com, which allows free reuse and modification in the spirit of
 ASCII art culture, but without an explicit license. No copyright claim is made
 over these png images.
 
 frown.png, love.png, and smile.png are exported from frown.aseprite. See
-mirai/README for credits.
+mirai/README for their credits.
 
-All other .png files in the list above are licensed under LicenseRef-MDM-1.0.
+All other PNG files in this directory are licensed under LicenseRef-MDM-1.0.

@@ -1,10 +1,5 @@
 barroit.sh
 ==========
 
-This repository is the profile page of barroit. It's hosted on barroit.sh and
-licensed under GPL-3.0-or-later. Some files use their own license, like fonts
-and artworks.
-
-This site follows WCAG 2.1 AA a11y guidelines, but disables zoom via CSS. This
-is intentional, as allowing zoom screws up layout consistency across devices.
-That's not tolerated, so layout wins and zoom gets dropped.
+This repository stores source code of barroit's profile page. Site's hosted on
+https://barroit.sh.
