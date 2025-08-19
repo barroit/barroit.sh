@@ -1,0 +1,1 @@
+../../barroit/site-lib/scripts/setup-shared.sh
